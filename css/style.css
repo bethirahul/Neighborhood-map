@@ -1,4 +1,4 @@
-html, body
+html, body, main
 {
     font-family: Arial, Helvetica, sans-serif;
     width: 100%;
@@ -18,28 +18,18 @@ div, h1, h4, main, select, option, button, input, header
     font-size: 0.95em;
 }
 
-main
-{
-    display: grid;
-    grid-template-rows: auto auto;
-    /*border: solid 1px green;*/
-}
-
-header
-{
-    grid-row: 1 / 2;
-    height: 9mm;
-    
-    display: flex;
-    /*grid-template-columns: 29mm auto;*/
-    /*align-items: center;*/
-    /*justify-content: center;*/
-}
-
 .theme
 {
     background-color: #1d222d;
     color: #efefef;
+}
+
+header
+{
+    height: 9mm;
+    display: flex;
+    /*align-items: center;*/
+    /*justify-content: center;*/
 }
 
 #toggle-listings
@@ -60,9 +50,12 @@ header
 
 #map-container
 {
-    grid-row: 2 / 3;
     width: 100%;
-    height: 100%;
-    max-height: 100%;
-    /*border: solid 1px red;*/
+    height: calc(100% - 4.5mm);
+}
+
+#map
+{
+    width: inherit;
+    height: inherit;
 }

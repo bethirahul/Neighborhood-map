@@ -31,10 +31,11 @@ function make_url(url, parameters={})
     var parameters = {
         'key': 'AIzaSyCxJAircwo3jIDVpKa2WCDz86mdtX-YOng',
         'libraries': ['geometry', 'drawing', 'places'],
-        'callback': 'initMap'
+        'callback': 'init_map'
     };
 
     url = make_url(url, parameters);
+    console.log(url);
 
     var body = document.getElementsByTagName('body')[0];
     var g_script = document.createElement('script');
@@ -47,4 +48,159 @@ function make_url(url, parameters={})
 
 //==============================================================================
 
+var map;
 
+// init map
+
+function init_map()
+{
+    // Google Maps Styling
+    // Takes default values if not all values are given or even empty
+    var my_styledMapType = new google.maps.StyledMapType(
+        [
+            {
+                elementType: 'geometry',
+                stylers: [{color: '#eaeaea'}]
+            },
+            {
+                elementType: 'labels.text.fill',
+                stylers: [{color: '#00225b'}]
+            },
+            {
+                elementType: 'labels.text.stroke',
+                stylers: [{color: '#edf4ff'}]
+            },
+            {
+                featureType: 'administrative',
+                elementType: 'geometry.stroke',
+                stylers: [{color: '#c9b2a6'}]
+            },
+            {
+                featureType: 'administrative.land_parcel',
+                elementType: 'geometry.stroke',
+                stylers: [{color: '#ffb7b7'}]
+            },
+            {
+                featureType: 'administrative.land_parcel',
+                elementType: 'labels.text.fill',
+                stylers: [{color: '#6b6968'}]
+            },
+            {
+                featureType: 'landscape.natural',
+                elementType: 'geometry',
+                stylers: [{color: '#d3e0b1'}]
+            },
+            {
+                featureType: 'poi',
+                elementType: 'geometry',
+                stylers: [{color: '#cbce82'}]
+            },
+            {
+                featureType: 'poi',
+                elementType: 'labels.text.fill',
+                stylers: [{color: '#665854'}]
+            },
+            {
+                featureType: 'poi.park',
+                elementType: 'geometry.fill',
+                stylers: [{color: '#83c483'}]
+            },
+            {
+                featureType: 'poi.park',
+                elementType: 'labels.text.fill',
+                stylers: [{color: '#30753e'}]
+            },
+            {
+                featureType: 'road',
+                elementType: 'geometry',
+                stylers: [{color: '#d1c19e'}]
+            },
+            {
+                featureType: 'road.arterial',
+                elementType: 'geometry',
+                stylers: [{color: '#dbc053'}]
+            },
+            {
+                featureType: 'road.highway',
+                elementType: 'geometry',
+                stylers: [{color: '#e9b158'}]
+            },
+            {
+                featureType: 'road.highway',
+                elementType: 'geometry.stroke',
+                stylers: [{color: '#dba355'}]
+            },
+            {
+                featureType: 'road.highway.controlled_access',
+                elementType: 'geometry',
+                stylers: [{color: '#e98d58'}]
+            },
+            {
+                featureType: 'road.highway.controlled_access',
+                elementType: 'geometry.stroke',
+                stylers: [{color: '#db8555'}]
+            },
+            {
+                featureType: 'road.local',
+                elementType: 'labels.text.fill',
+                stylers: [{color: '#151c38'}]
+            },
+            {
+                featureType: 'transit.line',
+                elementType: 'geometry',
+                stylers: [{color: '#7f7fa3'}]
+            },
+            {
+                featureType: 'transit.line',
+                elementType: 'labels.text.fill',
+                stylers: [{color: '#8f7d77'}]
+            },
+            {
+                featureType: 'transit.line',
+                elementType: 'labels.text.stroke',
+                stylers: [{color: '#ebe3cd'}]
+            },
+            {
+                featureType: 'transit.station',
+                elementType: 'geometry',
+                stylers: [{color: '#c9cfe5'}]
+            },
+            {
+                featureType: 'water',
+                elementType: 'geometry.fill',
+                stylers: [{color: '#b5dfff'}]
+            },
+            {
+                featureType: 'water',
+                elementType: 'labels.text.fill',
+                stylers: [{color: '#6d7269'}]
+            }
+        ],
+        { name: 'Map' }
+    );
+
+    // Creates Google Maps at the DOM element which has an id map; with
+    // Latitude and Longitude for center and Zoom level (0-21) for area.
+    map = new google.maps.Map(
+        document.getElementById('map'),
+        {
+            center: { lat: 37.402349, lng: -121.927459 },
+            zoom: 13,
+            // Optional
+            //styles: styles,
+            // Optional: To disable [Map,Satellite,..] buttons, true by default
+            mapTypeControl: true,
+            // Optional: For extra map types or restrict them
+            mapTypeControlOptions: {
+                style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR,
+                mapTypeIds: ['my_style', 'hybrid']
+            },
+            //fullscreenControl: false,
+            streetViewControl: false
+        }
+    );
+
+    //Associate the styled map with the MapTypeId and set it to display.
+    map.mapTypes.set('my_style', my_styledMapType);
+    map.setMapTypeId('my_style');
+}
