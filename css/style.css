@@ -6,13 +6,63 @@ html, body
     font-size: 1em;
 }
 
-html, body, div, h1, h4, main, select, option, button, input, p
+html, body, div, h1, h4, main, select, option, button, input, p, header
 {
     margin: 0;
     padding: 0;
+    border: 0;
 }
 
-div, h1, h4, main, select, option, button, input
+div, h1, h4, main, select, option, button, input, header
 {
     font-size: 0.95em;
+}
+
+main
+{
+    display: grid;
+    grid-template-rows: auto auto;
+    /*border: solid 1px green;*/
+}
+
+header
+{
+    grid-row: 1 / 2;
+    height: 9mm;
+    
+    display: flex;
+    /*grid-template-columns: 29mm auto;*/
+    /*align-items: center;*/
+    /*justify-content: center;*/
+}
+
+.theme
+{
+    background-color: #1d222d;
+    color: #efefef;
+}
+
+#toggle-listings
+{
+    margin: 1mm;
+    padding: 1mm;
+    border: solid 1px #7c7c7c;
+}
+
+#app-name
+{
+    font-size: 1.25em;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    padding-left: 5%;
+}
+
+#map-container
+{
+    grid-row: 2 / 3;
+    width: 100%;
+    height: 100%;
+    max-height: 100%;
+    /*border: solid 1px red;*/
 }
