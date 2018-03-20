@@ -59,3 +59,15 @@ header
     width: inherit;
     height: inherit;
 }
+
+/* Info-Window */
+#infoWindow
+{
+    max-width: 55mm;
+}
+
+#panorama
+{
+    width: 50mm;
+    height: 50mm;
+}

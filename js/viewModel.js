@@ -14,7 +14,13 @@ var vm = function()
         'images/marker_icons/flag/selected.png', 134, 226, 0.1, 0.04);
 
     self.infoWindow = new google.maps.InfoWindow();
-    self.infoWindow.addListener('closeclick', self.close_infoWindow);
+    self.infoWindow.addListener(
+        'closeclick',
+        function()
+        {
+            self.close_infoWindow();
+        }
+    );
 
     self.close_infoWindow = function()
     {
@@ -77,7 +83,8 @@ var vm = function()
                             if(self.infoWindow.marker != this)
                             {
                                 this.setIcon(self.selected_icon);
-                                self.set_infoWindow(this);
+                                self.set_infoWindow(
+                                    this, new_place.description);
                             }
                         }
                     );
@@ -123,14 +130,62 @@ var vm = function()
             self.places[i].showHide_marker(state);
     }
 
-    self.set_infoWindow = function(marker)
+    self.set_infoWindow = function(marker, description)
     {
         if(self.infoWindow.marker != null)
             self.infoWindow.marker.setIcon(self.default_icon);
         
         self.infoWindow.marker = marker;
-        self.infoWindow.setContent("#");
-        self.infoWindow.open(map, marker);
+        /*self.infoWindow.setContent("#");
+        self.infoWindow.open(map, marker);*/
+
+        var streetView_service = new google.maps.StreetViewService();
+        var radius = 50;
+
+        function get_streetView(data, status)
+        {
+            var content = '<div id="infoWindow">' + description;
+            content += "<br/>" + marker.position + "</div>";
+
+            if(status == google.maps.StreetViewStatus.OK)
+            {
+                var nearBy_streetView_location = data.location.latLng;
+                var heading = google.maps.geometry.spherical.computeHeading(
+                    nearBy_streetView_location,
+                    marker.position
+                );
+
+                content += '<div id="panorama"></div>';
+                self.infoWindow.setContent(content);
+                self.infoWindow.open(map, marker);
+
+                var panorama_options = {
+                    position: nearBy_streetView_location,
+                    pov: {
+                        heading: heading,
+                        pitch: 20
+                    }
+                };
+                var panorama = new google.maps.StreetViewPanorama(
+                    document.getElementById("panorama"),
+                    panorama_options
+                );
+                panorama.setVisible(true);
+            }
+            else
+            {
+                content += "<div>Couldn't get Street View for this";
+                content += "location</div>";
+                self.infoWindow.setContent(content);
+                self.infoWindow.open(map, marker);
+            }
+        }
+
+        streetView_service.getPanoramaByLocation(
+            marker.position,
+            radius,
+            get_streetView
+        );
     }
 }
 
