@@ -35,6 +35,7 @@ var vm = function()
         .then(
             function(json_data)
             {
+                var bounds = new google.maps.LatLngBounds();
                 for(var i=0; i<json_data.Places.length; i++)
                 {
                     var new_place = new Place(
@@ -42,11 +43,28 @@ var vm = function()
                         json_data.Places[i].name,
                         json_data.Places[i].location,
                         json_data.Places[i].category,
-                        json_data.Places[i].description
+                        json_data.Places[i].description,
+                        self.default_icon
                     )
-                    //new_place.marker.setVisible(false);
+                    new_place.marker.addListener(
+                        'mouseover',
+                        function()
+                        {
+                            if(self.infoWindow.marker != this)
+                                this.setIcon(self.highlighted_icon);
+                        }
+                    );
+                    new_place.marker.addListener(
+                        'mouseout',
+                        function()
+                        {
+                            if(self.infoWindow.marker != this)
+                                this.setIcon(self.default_icon);
+                        }
+                    );
+                    
                     self.places.push(new_place);
-                    //bounds.extend(new_place.location);
+                    bounds.extend(new_place.location);
                 }
                 console.log("Created Places:");
                 for(var i=0; i<self.places.length; i++)
@@ -60,14 +78,14 @@ var vm = function()
                     console.log(out_data);
                 }
 
-                if(self.places.length > 0)
-                    self.show_places();
-                else
+                if(self.places.length <= 0)
                 {
                     var content = "No places were created.";
-                    content += "\nData obtained might be empty.";
+                    content += " Data obtained might be empty.";
                     alert(content);
                 }
+                else
+                    map.fitBounds(bounds);
             }
         )
         .catch(
@@ -78,9 +96,12 @@ var vm = function()
         );
     }());
 
-    self.show_places = function()
+    self.showHide_all_places = function(state)
     {
-        console.log("Show places is called");
+        console.log("Show/Hide all places function is called");
+
+        for(var i=0; i<self.places.length; i++)
+            self.places[i].showHide_marker(state);
     }
 }
 

@@ -198,12 +198,14 @@ function init_map()
     map.mapTypes.set('my_style', my_styledMapType);
     map.setMapTypeId('my_style');
 
+    //------------------------------------------------------------------
+
     ko.applyBindings(new vm());
 }
 
 //==============================================================================
 
-var Place = function(id, name, {lat, lng}, category, description)
+var Place = function(id, name, {lat, lng}, category, description, default_icon)
 {
     var self = this;
 
@@ -212,6 +214,28 @@ var Place = function(id, name, {lat, lng}, category, description)
     self.location = {lat, lng};
     self.category = category;
     self.description = description;
+
+    self.marker = new google.maps.Marker(
+        {
+            id: self.id,
+            position: self.location,
+            map: map,
+            title: self.name,
+            icon: default_icon,
+            animation: google.maps.Animation.DROP
+        }
+    );
+
+    self.showHide_marker = function(state)
+    {
+        self.marker.setVisible(state);
+
+        if(state == true)
+        {
+            self.marker.setIcon(default_icon);
+            self.marker.setAnimation(google.maps.Animation.DROP);
+        }
+    }
 }
 
 //==============================================================================
