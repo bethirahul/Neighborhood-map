@@ -140,7 +140,7 @@ var vm = function()
         self.infoWindow.open(map, marker);*/
 
         var streetView_service = new google.maps.StreetViewService();
-        var radius = 50;
+        var radius = 37;
 
         function get_streetView(data, status)
         {
@@ -186,6 +186,16 @@ var vm = function()
             radius,
             get_streetView
         );
+    }
+
+    self.listings_btn_text = ko.observable('Show Listings');
+
+    self.toggle_listings = function(btn)
+    {
+        if(self.listings_btn_text() == 'Show Listings')
+            btn.listings_btn_text('Hide Listings');
+        else
+            btn.listings_btn_text('Show Listings');
     }
 }
 
