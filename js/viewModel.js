@@ -26,6 +26,14 @@ var vm = function()
         }
     }
 
+    map.addListener(
+        'click',
+        function()
+        {
+            self.close_infoWindow();
+        }
+    );
+
     (function()
     {
         //fetch("http://localhost:5000/listings/json")
@@ -60,6 +68,17 @@ var vm = function()
                         {
                             if(self.infoWindow.marker != this)
                                 this.setIcon(self.default_icon);
+                        }
+                    );
+                    new_place.marker.addListener(
+                        'click',
+                        function()
+                        {
+                            if(self.infoWindow.marker != this)
+                            {
+                                this.setIcon(self.selected_icon);
+                                self.set_infoWindow(this);
+                            }
                         }
                     );
                     
@@ -102,6 +121,16 @@ var vm = function()
 
         for(var i=0; i<self.places.length; i++)
             self.places[i].showHide_marker(state);
+    }
+
+    self.set_infoWindow = function(marker)
+    {
+        if(self.infoWindow.marker != null)
+            self.infoWindow.marker.setIcon(self.default_icon);
+        
+        self.infoWindow.marker = marker;
+        self.infoWindow.setContent("#");
+        self.infoWindow.open(map, marker);
     }
 }
 
