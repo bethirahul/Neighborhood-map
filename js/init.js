@@ -50,8 +50,6 @@ function make_url(url, parameters={})
 
 var map;
 
-// init map
-
 function init_map()
 {
     // Google Maps Styling
@@ -186,11 +184,7 @@ function init_map()
         {
             center: { lat: 37.402349, lng: -121.927459 },
             zoom: 13,
-            // Optional
-            //styles: styles,
-            // Optional: To disable [Map,Satellite,..] buttons, true by default
             mapTypeControl: true,
-            // Optional: For extra map types or restrict them
             mapTypeControlOptions: {
                 style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR,
                 mapTypeIds: ['my_style', 'hybrid']
@@ -203,4 +197,6 @@ function init_map()
     //Associate the styled map with the MapTypeId and set it to display.
     map.mapTypes.set('my_style', my_styledMapType);
     map.setMapTypeId('my_style');
+
+    ko.applyBindings(new vm());
 }

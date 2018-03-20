@@ -1,9 +1,30 @@
+
 var vm = function()
 {
     var self = this;
 
     //---- init
     self.places = [];
+
+    self.default_icon = create_marker_icon(
+        'images/marker_icons/flag/default.png', 134, 226, 0.1, 0.04);
+    self.highlighted_icon = create_marker_icon(
+        'images/marker_icons/flag/hover.png', 134, 226, 0.1, 0.04);
+    self.selected_icon = create_marker_icon(
+        'images/marker_icons/flag/selected.png', 134, 226, 0.1, 0.04);
+
+    self.infoWindow = new google.maps.InfoWindow();
+    self.infoWindow.addListener('closeclick', self.close_infoWindow);
+
+    self.close_infoWindow = function()
+    {
+        if(self.infoWindow.marker != null)
+        {
+            self.infoWindow.marker.setIcon(self.default_icon);
+            self.infoWindow.marker = null;
+            self.infoWindow.close();
+        }
+    }
 
     (function()
     {
@@ -38,18 +59,31 @@ var vm = function()
                     };
                     console.log(out_data);
                 }
+
+                if(self.places.length > 0)
+                    self.show_places();
+                else
+                {
+                    var content = "No places were created.";
+                    content += "\nData obtained might be empty.";
+                    alert(content);
+                }
             }
         )
         .catch(
             function(error)
             {
-                console.log("Error occured while fetching for places data:")
-                console.log(error);
+                alert("Error occured while fetching for places data: " + error);
             }
         );
-    })();
+    }());
+
+    self.show_places = function()
+    {
+        console.log("Show places is called");
+    }
 }
 
-ko.applyBindings(new vm());
+//ko.applyBindings(new vm());
 
 //==============================================================================
