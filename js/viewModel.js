@@ -239,12 +239,12 @@ var vm = function()
 
     self.search_results = ko.observableArray([]);
 
+    self.search_results_found = ko.observable(true);
+
     self.search_lisitngs = function()
     {
         /*console.log(self.search_query());
         console.log(self.search_category());*/
-
-        self.search_results([]);
 
         var category_results = [];
         if(self.search_category() == self.categories()[0])
@@ -258,21 +258,25 @@ var vm = function()
             }
         }
 
+        self.search_results([]);
         if(self.search_query() == '')
             self.search_results(category_results);
         else
         {
             for(var i=0; i<category_results.length; i++)
             {
-                if(category_results[i].name.startsWith(self.search_query()))
-                self.search_results.push(category_results[i]);
+                var name = category_results[i].name.toLowerCase();
+                var name = name.replace(/[^A-Z0-9]/ig, "");
+
+                if(name.startsWith(self.search_query()))
+                    self.search_results.push(category_results[i]);
             }
         }
 
         if(self.search_results().length == 0)
-            console.log("No results were found");
+            self.search_results_found(false);
         else
-            console.log(self.search_results());
+            self.search_results_found(true);
     }
 
     self.clear_search = function()

@@ -63,7 +63,16 @@
             type="button"
             data-bind="value: 'Clear', click: clear_search">
         <br/>
-        <div id="listings" data-bind=""></div>
+        <div
+            id="listings"
+            data-bind="visible: search_results_found, foreach: search_results">
+          <div class="listing">
+            <p data-bind="text: name"></p>
+          </div>
+        </div>
+        <p data-bind="visible: !search_results_found()">
+          <em>No results were found!</em>
+        </p>
       </aside>
 
     </div> <!-- end 2 -->
