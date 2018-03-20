@@ -5,6 +5,7 @@ var vm = function()
 
     //---- init
     self.places = [];
+    self.categories = ko.observableArray(['All']);
 
     self.default_icon = create_marker_icon(
         'images/marker_icons/flag/default.png', 134, 226, 0.1, 0.04);
@@ -111,7 +112,25 @@ var vm = function()
                     alert(content);
                 }
                 else
+                {
                     map.fitBounds(bounds);
+
+                    for(var i=0; i<self.places.length; i++)
+                    {
+                        var found = false;
+                        for(var j=1; j<self.categories().length; j++)//[0]='All'
+                        {
+                            if(self.places[i].category == self.categories()[j])
+                            {
+                                found = true;
+                                j = self.categories().length;
+                            }
+                        }
+                        if(!found)
+                            self.categories.push(self.places[i].category);
+                    }
+                    console.log(self.categories());
+                }
             }
         )
         .catch(
@@ -209,15 +228,19 @@ var vm = function()
     self.showHide_listings = function(state)
     {
         self.display_listings(state);
+    }
 
-        if(state == true)
-        {
-            
-        }
-        else
-        {
-            
-        }
+
+    self.search_query = ko.observable("");
+    self.search_query.subscribe( function() { self.search_lisitngs(); } );
+
+    self.search_category = ko.observable("All");
+    self.search_category.subscribe( function() { self.search_lisitngs(); } );
+
+    self.search_lisitngs = function()
+    {
+        console.log(self.search_query());
+        console.log(self.search_category());
     }
 }
 

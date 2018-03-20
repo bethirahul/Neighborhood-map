@@ -41,12 +41,25 @@
     <!-- 2. MAP -->
     <div id="map-container">
 
-      <!-- 2.1. Listings Side-bar -->
+      <!-- 2.1. Google Map -->
       <div id="map"></div>
 
       <!-- 2.2. Listings Side-bar -->
       <aside id="listings-bar" data-bind="visible: display_listings">
         
+        <h1>Listings</h1>
+        <input
+            id="search-input"
+            placeholder="Enter name to filter"
+            data-bind="textInput: search_query">
+        <br/>
+        <p>Filter by category</p>
+        <select
+            id="search-category"
+            data-bind="options: categories, value: search_category">
+        </select>
+        <br/>
+
       </aside>
 
     </div> <!-- end 2 -->
