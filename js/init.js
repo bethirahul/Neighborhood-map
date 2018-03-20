@@ -200,3 +200,34 @@ function init_map()
 
     ko.applyBindings(new vm());
 }
+
+//==============================================================================
+
+var Place = function(id, name, {lat, lng}, category, description)
+{
+    var self = this;
+
+    self.id = id;
+    self.name = name;
+    self.location = {lat, lng};
+    self.category = category;
+    self.description = description;
+}
+
+//==============================================================================
+
+function create_marker_icon(url, w, h, s, anchor_ratio)
+{
+    var ws = w * s;
+    var hs = h * s;
+
+    var icon = new google.maps.MarkerImage(
+        url,                                                    // url
+        new google.maps.Size(ws, hs),                           // size
+        new google.maps.Point(0, 0),                            // origin
+        new google.maps.Point(((w-1)*s)*anchor_ratio, (h-1)*s), // anchor
+        new google.maps.Size(ws, hs)                            // scale
+    )
+
+    return icon;
+}
