@@ -23,18 +23,33 @@
   
   <main>
 
+    <!-- 1. HEADER -->
     <header class="theme">
+
+      <!-- 1.1. App name -->
+      <h1 id="app-name">Neighborhood Map</h1>
+
+      <!-- 1.2. Show/Hide Listings Button -->
       <input
           id="toggle-listings"
           class="theme"
           type="button"
           data-bind="attr: {value: listings_btn_text}, click: toggle_listings">
-      <h1 id="app-name">Neighborhood Map</h1>
-    </header>
 
+    </header> <!-- end 1 -->
+
+    <!-- 2. MAP -->
     <div id="map-container">
+
+      <!-- 2.1. Listings Side-bar -->
       <div id="map"></div>
-    </div>
+
+      <!-- 2.2. Listings Side-bar -->
+      <aside id="listings-bar" data-bind="visible: display_listings">
+        
+      </aside>
+
+    </div> <!-- end 2 -->
 
   </main>
     

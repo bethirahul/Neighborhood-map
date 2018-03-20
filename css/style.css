@@ -27,13 +27,18 @@ div, h1, h4, main, select, option, button, input, header
 header
 {
     height: 9mm;
-    display: flex;
+    display: grid;
+    grid-template-columns: 5mm auto;
     /*align-items: center;*/
     /*justify-content: center;*/
 }
 
 #toggle-listings
 {
+    position: absolute;
+    width: 25mm;
+    left: 0;
+    top: 0;
     margin: 1mm;
     padding: 1mm;
     border: solid 1px #7c7c7c;
@@ -42,22 +47,21 @@ header
 #app-name
 {
     font-size: 1.25em;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    padding-left: 5%;
+    grid-column: 2/3;
+    align-self: center;
+    justify-self: center;
 }
 
 #map-container
 {
     width: 100%;
-    height: calc(100% - 4.5mm);
+    height: calc(100% - 9mm);
 }
 
 #map
 {
-    width: inherit;
-    height: inherit;
+    width: 100%;
+    height: 100%;
 }
 
 /* Info-Window */
@@ -70,4 +74,17 @@ header
 {
     width: 50mm;
     height: 50mm;
+}
+
+#listings-bar
+{
+    position: absolute;
+    left: 0;
+    top: 9mm;
+    height: calc(100% - 9mm);
+    width: 250px;
+    background: solid 1px red;
+
+    background-color: #272e3d;
+    color: #efefef;
 }

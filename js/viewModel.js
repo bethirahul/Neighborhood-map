@@ -193,9 +193,31 @@ var vm = function()
     self.toggle_listings = function(btn)
     {
         if(self.listings_btn_text() == 'Show Listings')
+        {
             btn.listings_btn_text('Hide Listings');
+            self.showHide_listings(true);
+        }
         else
+        {
             btn.listings_btn_text('Show Listings');
+            self.showHide_listings(false);
+        }
+    }
+
+    self.display_listings = ko.observable(false);
+
+    self.showHide_listings = function(state)
+    {
+        self.display_listings(state);
+
+        if(state == true)
+        {
+            
+        }
+        else
+        {
+            
+        }
     }
 }
 
