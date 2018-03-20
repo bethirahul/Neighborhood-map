@@ -34,7 +34,7 @@
           id="toggle-listings"
           class="theme"
           type="button"
-          data-bind="attr: {value: listings_btn_text}, click: toggle_listings">
+          data-bind="value: listings_btn_text, click: toggle_listings">
 
     </header> <!-- end 1 -->
 
@@ -58,8 +58,12 @@
             id="search-category"
             data-bind="options: categories, value: search_category">
         </select>
+        <input
+            id="search-clear-btn"
+            type="button"
+            data-bind="value: 'Clear', click: clear_search">
         <br/>
-
+        <div id="listings" data-bind=""></div>
       </aside>
 
     </div> <!-- end 2 -->

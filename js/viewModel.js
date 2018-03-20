@@ -129,6 +129,7 @@ var vm = function()
                         if(!found)
                             self.categories.push(self.places[i].category);
                     }
+                    self.search_lisitngs();
                     console.log(self.categories());
                 }
             }
@@ -230,17 +231,54 @@ var vm = function()
         self.display_listings(state);
     }
 
-
     self.search_query = ko.observable("");
     self.search_query.subscribe( function() { self.search_lisitngs(); } );
 
     self.search_category = ko.observable("All");
     self.search_category.subscribe( function() { self.search_lisitngs(); } );
 
+    self.search_results = ko.observableArray([]);
+
     self.search_lisitngs = function()
     {
-        console.log(self.search_query());
-        console.log(self.search_category());
+        /*console.log(self.search_query());
+        console.log(self.search_category());*/
+
+        self.search_results([]);
+
+        var category_results = [];
+        if(self.search_category() == self.categories()[0])
+            category_results = self.places;
+        else
+        {
+            for(var i=0; i<self.places.length; i++)
+            {
+                if(self.search_category() == self.places[i].category)
+                    category_results.push(self.places[i]);
+            }
+        }
+
+        if(self.search_query() == '')
+            self.search_results(category_results);
+        else
+        {
+            for(var i=0; i<category_results.length; i++)
+            {
+                if(category_results[i].name.startsWith(self.search_query()))
+                self.search_results.push(category_results[i]);
+            }
+        }
+
+        if(self.search_results().length == 0)
+            console.log("No results were found");
+        else
+            console.log(self.search_results());
+    }
+
+    self.clear_search = function()
+    {
+        self.search_query("");
+        self.search_category(self.categories()[0]);
     }
 }
 
