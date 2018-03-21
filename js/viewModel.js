@@ -273,10 +273,24 @@ var vm = function()
             }
         }
 
-        if(self.search_results().length == 0)
+        self.showHide_all_places(false);
+        var results_length = self.search_results().length;
+        if(results_length == 0)
             self.search_results_found(false);
         else
+        {
             self.search_results_found(true);
+            if(results_length == self.places.length)
+                self.showHide_all_places(true);
+            else
+            {
+                for(var i=0; i<results_length; i++)
+                {
+                    var id = self.search_results()[i].id;
+                    self.places[id].showHide_marker(true);
+                }
+            }
+        }
     }
 
     self.clear_search = function()
