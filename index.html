@@ -66,9 +66,11 @@
         <div
             id="listings"
             data-bind="visible: search_results_found, foreach: search_results">
-          <div class="listing">
-            <p data-bind="text: name"></p>
-          </div>
+          <input
+              class="listing theme"
+              type="button"
+              data-bind="value: name">
+          </input>
         </div>
         <p data-bind="visible: !search_results_found()">
           <em>No results were found!</em>
