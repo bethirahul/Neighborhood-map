@@ -148,10 +148,14 @@ var vm = function()
 
         for(var i=0; i<self.places.length; i++)
             self.places[i].showHide_marker(state);
+         if(state == false)
+             self.close_infoWindow();
     }
 
     self.set_infoWindow = function(marker, description)
     {
+        self.showHide_listings(false);
+        
         if(self.infoWindow.marker != null)
             self.infoWindow.marker.setIcon(self.default_icon);
         
@@ -210,18 +214,12 @@ var vm = function()
 
     self.listings_btn_text = ko.observable('Show Listings');
 
-    self.toggle_listings = function(btn)
+    self.toggle_listings = function()
     {
         if(self.listings_btn_text() == 'Show Listings')
-        {
-            btn.listings_btn_text('Hide Listings');
             self.showHide_listings(true);
-        }
         else
-        {
-            btn.listings_btn_text('Show Listings');
             self.showHide_listings(false);
-        }
     }
 
     self.display_listings = ko.observable(false);
@@ -229,6 +227,11 @@ var vm = function()
     self.showHide_listings = function(state)
     {
         self.display_listings(state);
+
+        if(state == true)
+            self.listings_btn_text('Hide Listings');
+        else
+            self.listings_btn_text('Show Listings');
     }
 
     self.search_query = ko.observable("");
