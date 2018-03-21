@@ -69,7 +69,12 @@
           <input
               class="listing theme"
               type="button"
-              data-bind="value: name">
+              data-bind="
+                value: name,
+                click: function() 
+                {
+                    $parent.open_infoWindow_at_place(id)
+                }">
           </input>
         </div>
         <p data-bind="visible: !search_results_found()">

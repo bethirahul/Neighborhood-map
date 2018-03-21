@@ -298,6 +298,14 @@ var vm = function()
         self.search_query("");
         self.search_category(self.categories()[0]);
     }
+
+    self.open_infoWindow_at_place= function(place_id)
+    {
+        self.set_infoWindow(
+            self.places[place_id].marker,
+            self.places[place_id].description
+        );
+    }
 }
 
 //ko.applyBindings(new vm());
