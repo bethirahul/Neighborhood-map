@@ -35,7 +35,6 @@ function make_url(url, parameters={})
     };
 
     url = make_url(url, parameters);
-    console.log(url);
 
     var body = document.getElementsByTagName('body')[0];
     var g_script = document.createElement('script');

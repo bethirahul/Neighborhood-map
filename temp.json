@@ -1,0 +1,136 @@
+{
+    "meta": {
+        "code": 200,
+        "requestId": "5ab39267351e3d4dfa847a03"
+    },
+    "response": {
+        "venues": [{
+            "id": "5a4fcf170531e81b85c76b76",
+            "name": "Philz",
+            "contact": {},
+            "location": {
+                "lat": 37.240062,
+                "lng": -121.79448,
+                "labeledLatLngs": [{
+                    "label": "display",
+                    "lat": 37.240062,
+                    "lng": -121.79448
+                }],
+                "distance": 25945,
+                "postalCode": "95119",
+                "cc": "US",
+                "city": "San Jose",
+                "state": "CA",
+                "country": "United States",
+                "formattedAddress": ["San Jose, CA 95119", "United States"]
+            },
+            "categories": [{
+                "id": "4bf58dd8d48988d1e0931735",
+                "name": "Coffee Shop",
+                "pluralName": "Coffee Shops",
+                "shortName": "Coffee Shop",
+                "icon": {
+                    "prefix": "https:\/\/ss3.4sqi.net\/img\/categories_v2\/food\/coffeeshop_",
+                    "suffix": ".png"
+                },
+                "primary": true
+            }],
+            "verified": false,
+            "stats": {
+                "tipCount": 0,
+                "usersCount": 1,
+                "checkinsCount": 1
+            },
+            "allowMenuUrlEdit": true,
+            "beenHere": {
+                "lastCheckinExpiredAt": 0
+            },
+            "specials": {
+                "count": 0,
+                "items": []
+            },
+            "hereNow": {
+                "count": 0,
+                "summary": "Nobody here",
+                "groups": []
+            },
+            "referralId": "v-1521717863",
+            "venueChains": [{
+                "id": "5568f13ba7c8a9cf8ec42a3e"
+            }],
+            "hasPerk": false
+        }]
+    }
+}
+
+
+{
+    "meta": {
+        "code": 200,
+        "requestId": "5ab3930e4434b94d5fc42925"
+    },
+    "response": {
+        "venues": [{
+            "id": "4a844f01f964a5203bfc1fe3",
+            "name": "Philz Coffee",
+            "contact": {
+                "phone": "4158759943",
+                "formattedPhone": "(415) 875-9943",
+                "twitter": "philzcoffee"
+            },
+            "location": {
+                "address": "201 Berry St",
+                "crossStreet": "at 4th St",
+                "lat": 37.775835520768936,
+                "lng": -122.39346184871675,
+                "distance": 54668,
+                "postalCode": "94158",
+                "cc": "US",
+                "neighborhood": "Mission Bay",
+                "city": "San Francisco",
+                "state": "CA",
+                "country": "United States",
+                "formattedAddress": ["201 Berry St (at 4th St)", "San Francisco, CA 94158", "United States"]
+            },
+            "categories": [{
+                "id": "4bf58dd8d48988d1e0931735",
+                "name": "Coffee Shop",
+                "pluralName": "Coffee Shops",
+                "shortName": "Coffee Shop",
+                "icon": {
+                    "prefix": "https:\/\/ss3.4sqi.net\/img\/categories_v2\/food\/coffeeshop_",
+                    "suffix": ".png"
+                },
+                "primary": true
+            }],
+            "verified": true,
+            "stats": {
+                "tipCount": 308,
+                "usersCount": 11675,
+                "checkinsCount": 51000
+            },
+            "url": "http:\/\/www.philzcoffee.com",
+            "hasMenu": true,
+            "menu": {
+                "type": "Menu",
+                "label": "Menu",
+                "anchor": "View Menu",
+                "url": "https:\/\/foursquare.com\/v\/philz-coffee\/4a844f01f964a5203bfc1fe3\/menu",
+                "mobileUrl": "https:\/\/foursquare.com\/v\/4a844f01f964a5203bfc1fe3\/device_menu"
+            },
+            "allowMenuUrlEdit": true,
+            "beenHere": {
+                "lastCheckinExpiredAt": 0
+            },
+            "specials": {
+                "count": 0,
+                "items": []
+            },
+            "referralId": "v-1521718030",
+            "venueChains": [{
+                "id": "5568f13ba7c8a9cf8ec42a3e"
+            }],
+            "hasPerk": false
+        }]
+    }
+}

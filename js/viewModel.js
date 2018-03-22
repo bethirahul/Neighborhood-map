@@ -163,7 +163,8 @@ var vm = function()
         {
             content += '<input id="' + fourSquare_btn_id + '" class="theme"';
             content += 'type="button" value="More Info [Foursquare]"';
-            content += 'data-bind="click: get_fourSquare_data"></input>'
+            content += 'data-bind="click: function() { get_fourSquare_data(';
+            content += marker.id + ') }"></input>';
         }
 
         content += '<div id="panorama"></div>';
@@ -216,11 +217,38 @@ var vm = function()
         }
     }
 
-    ////////////////////////////////////////////
-    self.get_fourSquare_data = function()
+    //////////////////////////////////////////////
+    self.get_fourSquare_data = function(place_id)
     {
         console.log('Foursquare button pressed');
+
+        var category = self.places[place_id].category;
+        var name = self.places[place_id].name;
+        var lat = self.places[place_id].location.lat;
+        var lng = self.places[place_id].location.lng;
+        console.log(lat, lng);
+
+        var category_id;
+        if(category == 'Cafe')
+            category_id = '4bf58dd8d48988d16d941735';
+
+        var url = 'https://api.foursquare.com/v2/venues/search';
+        
+        var parameters = {
+            'client_id': 'HTBFZRTZTZPNMI5RU1VCGPBCUZR0NK4XXPQFWTPSCCVHBVBL',
+            'client_secret': 'TLUBLKEWGFURA5TIUC5K0EXHKOMQ551BINJGFM0NXA2SNZHB',
+            'v': '20170801',
+            'categoryId': category_id,
+            'limit': '1',
+            'll': [lat, lng],
+            'query': name.split(' ').join('+'),
+            'intent': 'global'
+        };
+
+        url = make_url(url, parameters);
+        console.log(url);
     }
+    //////////////////////////////////////////////
 
     self.listings_btn_text = ko.observable('Show Listings');
 
