@@ -220,13 +220,10 @@ var vm = function()
     //////////////////////////////////////////////
     self.get_fourSquare_data = function(place_id)
     {
-        console.log('Foursquare button pressed');
-
         var category = self.places[place_id].category;
         var name = self.places[place_id].name;
         var lat = self.places[place_id].location.lat;
         var lng = self.places[place_id].location.lng;
-        console.log(lat, lng);
 
         var category_id;
         if(category == 'Cafe')
@@ -254,6 +251,37 @@ var vm = function()
             function(json_data)
             {
                 console.log(json_data);
+
+                if(json_data['meta']['code'] == 200)
+                {
+                    var content = '';
+                    if(json_data['response']['venues'].length == 0)
+                    {
+                        content += '<p>Sorry! This place is not found in';
+                        content += ' FourSquare</p>';
+                    }
+                    else
+                    {
+                        var place = json_data['response']['venues'][0];
+                        content += '<h1>' + place['name'] + '</h1>';
+                    }
+
+                    self.infoWindow.setContent(content);
+                }
+                else if(json_data['meta']['code'])
+                {
+                    var message = "Error in fetching FourSquare data.";
+                    message += '\n\nError type: ';
+                    message += json_data['meta']['errorType'];
+                    message += '\n' + json_data['meta']['errorDetail'];
+                    alert(message);
+                }
+            }
+        )
+        .catch(
+            function(error)
+            {
+                alert("Error during fetching for FourSquare data: " + error);
             }
         );
     }
