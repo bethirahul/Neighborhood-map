@@ -81,13 +81,24 @@ var vm = function()
                         'click',
                         function()
                         {
-                            if(self.infoWindow.marker != this)
+                            var description = new_place.description;
+                            var category = new_place.category;
+
+                            function clicked_marker()
                             {
-                                this.setIcon(self.selected_icon);
-                                self.set_infoWindow(
-                                    this, new_place.description);
+                                if(self.infoWindow.marker != this)
+                                {
+                                    this.setIcon(self.selected_icon);
+                                    self.set_infoWindow(
+                                        this,
+                                        description,
+                                        category
+                                    );
+                                }
                             }
-                        }
+
+                            return clicked_marker;
+                        }()
                     );
                     
                     self.places.push(new_place);
@@ -152,7 +163,7 @@ var vm = function()
              self.close_infoWindow();
     }
 
-    self.set_infoWindow = function(marker, description)
+    self.set_infoWindow = function(marker, description, category)
     {
         self.showHide_listings(false);
         
@@ -163,14 +174,33 @@ var vm = function()
         /*self.infoWindow.setContent("#");
         self.infoWindow.open(map, marker);*/
 
+        var content = '<div id="infoWindow">' + description;
+        content += "<br/>" + marker.position + "</div>";
+
+        console.log(category);
+        if(category == "Cafe")
+        {
+            console.log("A");
+            content += '<input id="foursquare-btn" class="theme"';
+            content += 'data-bind="click: get_foursquare_data">More Info</input>'
+        }
+
+        content += '<div id="panorama"></div>';
+
+        self.infoWindow.setContent(content);
+        self.infoWindow.open(map, marker);
+
         var streetView_service = new google.maps.StreetViewService();
         var radius = 37;
 
+        streetView_service.getPanoramaByLocation(
+            marker.position,
+            radius,
+            get_streetView
+        );
+
         function get_streetView(data, status)
         {
-            var content = '<div id="infoWindow">' + description;
-            content += "<br/>" + marker.position + "</div>";
-
             if(status == google.maps.StreetViewStatus.OK)
             {
                 var nearBy_streetView_location = data.location.latLng;
@@ -178,10 +208,6 @@ var vm = function()
                     nearBy_streetView_location,
                     marker.position
                 );
-
-                content += '<div id="panorama"></div>';
-                self.infoWindow.setContent(content);
-                self.infoWindow.open(map, marker);
 
                 var panorama_options = {
                     position: nearBy_streetView_location,
@@ -201,15 +227,13 @@ var vm = function()
                 content += "<div>Couldn't get Street View for this";
                 content += "location</div>";
                 self.infoWindow.setContent(content);
-                self.infoWindow.open(map, marker);
             }
         }
+    }
 
-        streetView_service.getPanoramaByLocation(
-            marker.position,
-            radius,
-            get_streetView
-        );
+    self.get_foursquare_data = function()
+    {
+        console.log('Foursquare button pressed');
     }
 
     self.listings_btn_text = ko.observable('Show Listings');
@@ -306,7 +330,8 @@ var vm = function()
     {
         self.set_infoWindow(
             self.places[place_id].marker,
-            self.places[place_id].description
+            self.places[place_id].description,
+            self.places[place_id].category
         );
     }
 }
