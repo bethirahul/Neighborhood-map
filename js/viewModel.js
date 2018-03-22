@@ -247,6 +247,15 @@ var vm = function()
 
         url = make_url(url, parameters);
         console.log(url);
+
+        fetch(url)
+        .then( function(data) { return data.json(); } )
+        .then(
+            function(json_data)
+            {
+                console.log(json_data);
+            }
+        );
     }
     //////////////////////////////////////////////
 
