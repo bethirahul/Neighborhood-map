@@ -78,28 +78,7 @@ var vm = function()
                         }
                     );
                     new_place.marker.addListener(
-                        'click',
-                        function()
-                        {
-                            var description = new_place.description;
-                            var category = new_place.category;
-
-                            function clicked_marker()
-                            {
-                                if(self.infoWindow.marker != this)
-                                {
-                                    this.setIcon(self.selected_icon);
-                                    self.set_infoWindow(
-                                        this,
-                                        description,
-                                        category
-                                    );
-                                }
-                            }
-
-                            return clicked_marker;
-                        }()
-                    );
+                        'click', function() { self.set_infoWindow(this); });
                     
                     self.places.push(new_place);
                     bounds.extend(new_place.location);
@@ -155,16 +134,17 @@ var vm = function()
 
     self.showHide_all_places = function(state)
     {
-        console.log("Show/Hide all places function is called");
-
         for(var i=0; i<self.places.length; i++)
             self.places[i].showHide_marker(state);
-         if(state == false)
+        if(state == false)
              self.close_infoWindow();
     }
 
-    self.set_infoWindow = function(marker, description, category)
+    self.set_infoWindow = function(marker)
     {
+        var description = self.places[marker.id].description;
+        var category = self.places[marker.id].category;
+
         self.showHide_listings(false);
         
         if(self.infoWindow.marker != null)
@@ -177,18 +157,23 @@ var vm = function()
         var content = '<div id="infoWindow">' + description;
         content += "<br/>" + marker.position + "</div>";
 
-        console.log(category);
+        var fourSquare_btn_id = "fourSquare-btn";
+
         if(category == "Cafe")
         {
-            console.log("A");
-            content += '<input id="foursquare-btn" class="theme"';
-            content += 'data-bind="click: get_foursquare_data">More Info</input>'
+            content += '<input id="' + fourSquare_btn_id + '" class="theme"';
+            content += 'type="button" value="More Info [Foursquare]"';
+            content += 'data-bind="click: get_fourSquare_data"></input>'
         }
 
         content += '<div id="panorama"></div>';
 
         self.infoWindow.setContent(content);
         self.infoWindow.open(map, marker);
+
+        fourSquare_btn = document.getElementById(fourSquare_btn_id);
+        if(fourSquare_btn)
+            ko.applyBindings(self, fourSquare_btn);
 
         var streetView_service = new google.maps.StreetViewService();
         var radius = 37;
@@ -231,7 +216,8 @@ var vm = function()
         }
     }
 
-    self.get_foursquare_data = function()
+    ////////////////////////////////////////////
+    self.get_fourSquare_data = function()
     {
         console.log('Foursquare button pressed');
     }
@@ -324,15 +310,6 @@ var vm = function()
     {
         self.search_query("");
         self.search_category(self.categories()[0]);
-    }
-
-    self.open_infoWindow_at_place= function(place_id)
-    {
-        self.set_infoWindow(
-            self.places[place_id].marker,
-            self.places[place_id].description,
-            self.places[place_id].category
-        );
     }
 }
 

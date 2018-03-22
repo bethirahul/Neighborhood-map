@@ -104,9 +104,12 @@ header
     border-bottom: solid 1px #424242;
 }
 
-#foursquare-btn
+#fourSquare-btn
 {
-    width: 5mm;
+    margin: 0.5mm;
+    padding-left: 1mm;
+    padding-right: 1mm;
+    /*width: 15mm;*/
     height: 5mm;
-    border: solid 1px red;
+    border: solid 1px #7c7c7c;
 }
