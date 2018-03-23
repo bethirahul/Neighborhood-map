@@ -50,7 +50,7 @@ db_session.add(new_place)
 db_session.commit()
 
 new_place = Listing(
-    name='Scenery 2',
+    name='Panaromic Hwy',
     lat=37.905449,
     lng=-122.573073,
     category='Scenery',
@@ -70,7 +70,7 @@ db_session.add(new_place)
 db_session.commit()
 
 new_place = Listing(
-    name='Scenery 1',
+    name='Cabrillo Hwy',
     lat=37.558997,
     lng=-122.514631,
     category='Scenery',
@@ -99,6 +99,36 @@ new_place = Listing(
 db_session.add(new_place)
 db_session.commit()
 
+new_place = Listing(
+    name='Pigeon Point Lighthouse',
+    lat=37.181735,
+    lng=-122.393933,
+    category='Scenery',
+    description='One of the under-rated places, beautiful scenery'
+)
+db_session.add(new_place)
+db_session.commit()
+
+new_place = Listing(
+    name='Verve Coffee Roasters',
+    lat=36.976242,
+    lng=-122.026735,
+    category='Cafe',
+    description='Want to spend sometime in a cafe which is away from big city?'
+)
+db_session.add(new_place)
+db_session.commit()
+
+new_place = Listing(
+    name='Starbucks',
+    lat=37.398159,
+    lng=-121.923706,
+    category='Cafe',
+    description='Nearest, smallest and one of the best cafe.'
+)
+db_session.add(new_place)
+db_session.commit()
+
 print("-- Finished -- Added menu items!")
 
 # Print all the places added
@@ -110,3 +140,5 @@ for place in places:
     print("   location: " + str(place.lat) + ", " + str(place.lng))
     print("   category: " + place.category)
     print("   description: " + place.description)
+#    db_session.delete(place)
+#    db_session.commit()

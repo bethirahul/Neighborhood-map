@@ -254,3 +254,76 @@ function create_marker_icon(url, w, h, s, anchor_ratio)
 
     return icon;
 }
+
+function string_match(input, match)
+{
+    var inputs = input.split(" ");
+    inputs = remove_empty_strings(inputs);
+    for(var i=0; i<inputs.length; i++)
+        inputs[i] = inputs[i].replace(/[^A-Z0-9]/ig, "");
+    input = inputs.join(" ");
+
+    var match = match.toLowerCase();
+
+    var matches = match.split(" ");
+    for(var i=0; i<matches.length; i++)
+        matches[i] = matches[i].replace(/[^A-Z0-9]/ig, "");
+    
+    var combined_match1 = matches.join("");
+
+    var combined_match2 = matches.join(" ");
+
+    if(combined_match1.startsWith(input))
+        return true;
+    else if(combined_match2.startsWith(input))
+        return true;
+    else
+        for(var i=0; i<matches.length; i++)
+            if(matches[i].startsWith(input))
+                return true;
+
+    return false;
+}
+
+function remove_empty_strings(string_array)
+{
+    for(var i=0; i<string_array.length; i++)
+        if(string_array[i] == '')
+        {
+            string_array = remove_from_array(i, string_array);
+            i--;
+        }
+    
+    return string_array;
+}
+
+function remove_from_array(index, array)
+{
+    if(!array)
+    {
+        console.log("Error: array is null");
+        return -1;
+    }
+    if(array.length == 0)
+    {
+        console.log("Error: array is empty");
+        return -1;
+    }
+    if(index >= array.length)
+    {
+        console.log("Error: index out of range");
+        return -1;
+    }
+    if(index < 0)
+    {
+        console.log("Error: index < 0");
+        return -1;
+    }
+
+    for(var i=index; i<(array.length-1); i++)
+        array[i] = array[i+1];
+    
+    array.pop();
+
+    return array;
+}

@@ -47,21 +47,23 @@
       <!-- 2.2. Listings Side-bar -->
       <aside id="listings-bar" data-bind="visible: display_listings">
         
-        <h1>Listings</h1>
-        <input
-            id="search-input"
-            placeholder="Enter name to filter"
-            data-bind="textInput: search_query">
-        <br/>
-        <p>Filter by category</p>
-        <select
-            id="search-category"
-            data-bind="options: categories, value: search_category">
-        </select>
-        <input
-            id="search-clear-btn"
-            type="button"
-            data-bind="value: 'Clear', click: clear_search">
+        <div id="search-listings">
+          <p class="search-element">Search Listings:</p>
+          <input
+              id="search-input" class="search-element"
+              placeholder="Enter name to filter"
+              data-bind="textInput: search_query">
+          <br/>
+          <p class="search-element">Filter by category</p>
+          <select
+              id="search-category" class="search-element"
+              data-bind="options: categories, value: search_category">
+          </select>
+          <input
+              id="search-clear-btn" class="search-element"
+              type="button"
+              data-bind="value: 'Clear', click: clear_search">
+        </div>
         <br/>
         <div
             id="listings"

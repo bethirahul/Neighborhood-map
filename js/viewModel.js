@@ -142,6 +142,7 @@ var vm = function()
 
     self.set_infoWindow = function(marker)
     {
+        var name = self.places[marker.id].name;
         var description = self.places[marker.id].description;
         var category = self.places[marker.id].category;
 
@@ -154,20 +155,27 @@ var vm = function()
         /*self.infoWindow.setContent("#");
         self.infoWindow.open(map, marker);*/
 
-        var content = '<div id="infoWindow">' + description;
-        content += "<br/>" + marker.position + "</div>";
+        var content = '<div id="infoWindow">';
+
+        content += '<h1>' + name + '</h1>';
+
+        content += "<p>" + description;
+        content += "<br/>" + marker.position + "</p>";
 
         var fourSquare_btn_id = "fourSquare-btn";
 
+        content += '<br/><div id="panorama"></div>';
+
         if(category == "Cafe")
         {
+            content += '<br/>';
             content += '<input id="' + fourSquare_btn_id + '" class="theme"';
             content += 'type="button" value="More Info [Foursquare]"';
             content += 'data-bind="click: function() { get_fourSquare_data(';
-            content += marker.id + ') }"></input>';
+            content += marker.id + ') }"></input><br/>';
         }
 
-        content += '<div id="panorama"></div>';
+        content += '</div>';
 
         self.infoWindow.setContent(content);
         self.infoWindow.open(map, marker);
@@ -306,7 +314,8 @@ var vm = function()
 
                     if(details.url)
                     {
-                        content += '<a href=' + details.url + '>';
+                        content += '<a href=' + details.url;
+                        content += ' target="_blank">';
                         content += 'visit their website</a>';
                     }
 
@@ -339,7 +348,8 @@ var vm = function()
                     if(details.canonicalUrl)
                     {
                         content += '<br/><a href=' + details.canonicalUrl;
-                        content += '>More at Foursquare...</a>';
+                        content += ' target="_blank">';
+                        content += 'More at Foursquare...</a>';
                     }
 
                     self.infoWindow.setContent(content);
@@ -418,12 +428,40 @@ var vm = function()
             self.search_results(category_results);
         else
         {
+            /*var inputs = self.search_query().split(" ");
+            for(var j=0; j<inputs.length; j++)
+                inputs[j] = inputs[j].replace(/[^A-Z0-9]/ig, "");
+            var input = inputs.join(" ");*/
+
             for(var i=0; i<category_results.length; i++)
             {
-                var name = category_results[i].name.toLowerCase();
-                var name = name.replace(/[^A-Z0-9]/ig, "");
+                /*var name = category_results[i].name.toLowerCase();
 
-                if(name.startsWith(self.search_query()))
+                var names = name.split(" ");
+                for(var j=0; j<names.length; j++)
+                    names[j] = names[j].replace(/[^A-Z0-9]/ig, "");
+                
+                var combined_name1 = names.join("");
+
+                var combined_name2 = names.join(" ");
+
+                var found = false;
+                if(combined_name1.startsWith(input))
+                    found = true;
+                else if(combined_name2.startsWith(input))
+                    found = true;
+                else
+                    for(var j=0; j<names.length; j++)
+                        if(names[j].startsWith(input))
+                        {
+                            found = true;
+                            j = names.length;
+                        }
+
+                if(found)
+                    self.search_results.push(category_results[i]);*/
+
+                if(string_match(self.search_query(), category_results[i].name))
                     self.search_results.push(category_results[i]);
             }
         }
