@@ -217,7 +217,6 @@ var vm = function()
         }
     }
 
-    //////////////////////////////////////////////
     self.get_fourSquare_data = function(place_id)
     {
         var category = self.places[place_id].category;
@@ -243,37 +242,36 @@ var vm = function()
         };
 
         url = make_url(url, parameters);
-        console.log(url);
 
         fetch(url)
         .then( function(data) { return data.json(); } )
         .then(
             function(json_data)
             {
-                console.log(json_data);
-
-                if(json_data['meta']['code'] == 200)
+                if(json_data.meta.code == 200)
                 {
                     var content = '';
-                    if(json_data['response']['venues'].length == 0)
+                    if(json_data.response.venues.length == 0)
                     {
                         content += '<p>Sorry! This place is not found in';
                         content += ' FourSquare</p>';
                     }
                     else
                     {
-                        var place = json_data['response']['venues'][0];
-                        content += '<h1>' + place['name'] + '</h1>';
+                        var place = json_data.response.venues[0];
+                        content += '<h1>' + place.name + '</h1>';
+
+                        self.get_fourSquare_details(place.id, content);
                     }
 
                     self.infoWindow.setContent(content);
                 }
-                else if(json_data['meta']['code'])
+                else if(json_data.meta.code)
                 {
                     var message = "Error in fetching FourSquare data.";
                     message += '\n\nError type: ';
-                    message += json_data['meta']['errorType'];
-                    message += '\n' + json_data['meta']['errorDetail'];
+                    message += json_data.meta.errorType;
+                    message += '\n' + json_data.meta.errorDetail;
                     alert(message);
                 }
             }
@@ -285,7 +283,86 @@ var vm = function()
             }
         );
     }
-    //////////////////////////////////////////////
+
+    self.get_fourSquare_details = function(venue_id, content)
+    {
+        var url = 'https://api.foursquare.com/v2/venues/' + venue_id;
+        var parameters = {
+            'client_id': 'HTBFZRTZTZPNMI5RU1VCGPBCUZR0NK4XXPQFWTPSCCVHBVBL',
+            'client_secret': 'TLUBLKEWGFURA5TIUC5K0EXHKOMQ551BINJGFM0NXA2SNZHB',
+            'v': '20170801'
+        }
+
+        url = make_url(url, parameters);
+
+        fetch(url)
+        .then( function(data) { return data.json(); } )
+        .then(
+            function(json_data)
+            {
+                if(json_data.meta.code == 200)
+                {
+                    var details = json_data.response.venue;
+
+                    if(details.url)
+                    {
+                        content += '<a href=' + details.url + '>';
+                        content += 'visit their website</a>';
+                    }
+
+                    if(details.rating)
+                    {
+                        content += '<br/><br/><p>Rating: ' + details.rating;
+                        content += '</p>';
+                    }
+
+                    if(details.hours)
+                    {
+                        content += '<br/>';
+
+                        var hours = details.hours;
+                        if(hours.status)
+                            content += '<p>' + hours.status + '</p>';
+                        if(hours.timeframes)
+                        {
+                            content += '<br/><p>Hours:<br/>';
+                            for(var i=0; i<hours.timeframes.length; i++)
+                            {
+                                content += hours.timeframes[i].days;
+                                content += ' - ' + hours.timeframes[i]
+                                        .open[0].renderedTime + '<br/>';
+                            }
+                            content += '</p>';
+                        }
+                    }
+
+                    if(details.canonicalUrl)
+                    {
+                        content += '<br/><a href=' + details.canonicalUrl;
+                        content += '>More at Foursquare...</a>';
+                    }
+
+                    self.infoWindow.setContent(content);
+                }
+                else if(json_data.meta.code)
+                {
+                    var message = "Error in fetching FourSquare details.";
+                    message += '\n\nError type: ';
+                    message += json_data.meta.errorType;
+                    message += '\n' + json_data.meta.errorDetail;
+                    alert(message);
+                }
+            }
+        )
+        .catch(
+            function(error)
+            {
+                alert("Error during fetching for FourSquare details: " + error);
+            }
+        );
+
+        return content;
+    }
 
     self.listings_btn_text = ko.observable('Show Listings');
 
