@@ -1,4 +1,8 @@
-// Function to create a url with parameters (queries)
+/**
+ * @description Function to create a url with parameters (queries)
+ * @param {string} url 
+ * @param {Object} parameters 
+ */
 function make_url(url, parameters={})
 {
     // Check the number of parameters
@@ -31,6 +35,7 @@ function make_url(url, parameters={})
     return url;
 }
 
+// Foursquare client details variables
 let fs_client_id = '';
 let fs_client_secret = '';
 
@@ -114,9 +119,12 @@ let fs_client_secret = '';
 
 //==============================================================================
 
+// Google Maps variable
 let map;
 
-// Google maps API call back function
+/**
+ * @description Google maps API call back function
+ */
 function init_map()
 {
     // Google Maps Styling
@@ -274,7 +282,17 @@ function init_map()
 }
 
 //==============================================================================
-// Place class function (constructor) - for our listings
+/**
+ * @description Place class function (constructor) - for our listings
+ * @constructor
+ * @param {number} id 
+ * @param {string} name 
+ * @param {number} lat
+ * @param {number} lng
+ * @param {string} category 
+ * @param {string} description 
+ * @param default_icon 
+ */
 let Place = function(id, name, {lat, lng}, category, description, default_icon)
 {
     let self = this;
@@ -317,7 +335,16 @@ let Place = function(id, name, {lat, lng}, category, description, default_icon)
 }
 
 //==============================================================================
-// Function to create icons for markers on the map - Google Maps API
+/**
+ * @description Creates icons for Google Maps Markers.
+ * @param {string} url Image location
+ * @param {number} w Width of the image in pixels
+ * @param {number} h Height
+ * @param {number} s Scale factor
+ * @param {number} anchor_ratio Center of the marker with respect to point 
+ *                              on map and its width.
+ * @returns Google Maps API - Marker icon.
+ */
 function create_marker_icon(url, w, h, s, anchor_ratio)
 {
     const ws = w * s;
@@ -337,7 +364,13 @@ function create_marker_icon(url, w, h, s, anchor_ratio)
 //==============================================================================
 // String manipulation functions
 
-// Matches both strings like a search engine
+/**
+ * @description Matches both strings by seperating words, removing special
+ *              characters, removing extra spaces, checking for one of the word.
+ * @param {string} input 
+ * @param {string} match String which needs to be matched with the input
+ * @returns true/false.
+ */
 function string_match(input, match)
 {
     // Convert input to small letters
@@ -384,12 +417,17 @@ function string_match(input, match)
     return false;
 }
 
-// This function is used in removing extra spaces in a string
-// String Split function creates empty character strings when there are more
-// than one space or spaces on the fronmt or back of the input string.
+/**
+ * @description This function is used in removing extra spaces in a string
+                String Split function creates empty character strings when
+                there are more than one space or spaces on the fronmt or back
+                of the input string.
+ * @param {string[]} string_array
+ * @returns string_array
+ */
 function remove_empty_strings(string_array)
 {
-    for(var i=0; i<string_array.length; i++)
+    for(let i=0; i<string_array.length; i++)
         if(string_array[i] == '')
         {
             // remove the empty string from the array
@@ -400,7 +438,11 @@ function remove_empty_strings(string_array)
     return string_array;
 }
 
-// Function to remove an element from an array
+/**
+ * @description Removes a element at given index from an array
+ * @param {number} index Index of the element to be removed
+ * @param {array} array 
+ */
 function remove_from_array(index, array)
 {
     // Error conditions

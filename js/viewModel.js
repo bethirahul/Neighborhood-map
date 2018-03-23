@@ -1,4 +1,6 @@
-// View Model (vm)
+/**
+ * @description Knockout JS View Model
+ */
 let vm = function()
 {
     let self = this;
@@ -117,17 +119,6 @@ let vm = function()
                     // Not the location of each new place in bounds variable
                     bounds.extend(new_place.location);
                 }
-                /*console.log("Created Places:");
-                for(let i=0; i<self.places.length; i++)
-                {
-                    out_data = {
-                        name: self.places[i].name,
-                        location: self.places[i].location,
-                        category: self.places[i].category,
-                        description: self.places[i].description
-                    };
-                    console.log(out_data);
-                }*/
 
                 // If not places were obtained from the JSON data, that means
                 // most likely the database might be empty. Alert with an error
@@ -262,7 +253,11 @@ let vm = function()
             get_streetView // call-back function
         );
 
-        // Call-back function for the Google Street View data
+        /**
+         * @description Call-back function for the Google Street View data
+         * @param {*} data 
+         * @param {*} status 
+         */
         function get_streetView(data, status)
         {
             // If the response is OK
