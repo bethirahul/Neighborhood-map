@@ -1,21 +1,27 @@
+// Function to create a url with parameters (queries)
 function make_url(url, parameters={})
 {
+    // Check the number of parameters
     parameters_length = Object.keys(parameters).length;
+    // Add parameters if there are any
     if(parameters_length > 0)
     {
         url += '?';
-        k = 0;
+        let k = 0;
         for(key in parameters)
         {
+            // Get the value associated to each key in parameters
             value = parameters[key];
+            // Check if a value is an array, if so add them with comma
             if(value.constructor === Array)
             {
                 url += key + '=' + value[0];
-                for(var i=1; i<value.length; i++)
+                for(let i=1; i<value.length; i++)
                     url += "," + value[i];
             }
             else
                 url += key + '=' + value;
+            // This is to not add '&' synbol after the last parameter
             if(k < parameters_length-1)
                 url += '&';
             k++;
@@ -25,35 +31,97 @@ function make_url(url, parameters={})
     return url;
 }
 
+let fs_client_id = '';
+let fs_client_secret = '';
+
+// This anonymous function fetches for keys and adds google maps api script
 (function()
 {
-    var url = "https://maps.googleapis.com/maps/api/js";
-    var parameters = {
-        'key': 'AIzaSyCxJAircwo3jIDVpKa2WCDz86mdtX-YOng',
-        'libraries': ['geometry', 'drawing', 'places'],
-        'callback': 'init_map'
-    };
+    // Fetch secrets.json file for the keys
+    fetch('secrets.json')
+    // Convert the returned data to json
+    .then( function(data) { return data.json(); } )
+    // Process the JSON data for keys
+    .then(
+        function(json_data)
+        {
+            // Search for Google maps API key
+            if(json_data.google.key)
+            {
+                // Store the google maps API key to make the url
+                const key = json_data.google.key;
 
-    url = make_url(url, parameters);
+                // Make google maps api url first
+                let url = "https://maps.googleapis.com/maps/api/js";
+                const parameters = {
+                    'key': key,//'AIzaSyCxJAircwo3jIDVpKa2WCDz86mdtX-YOng',
+                    // API libraries
+                    'libraries': ['geometry', 'drawing', 'places'],
+                    // Call back function for google maps api
+                    'callback': 'init_map'
+                };
 
-    var body = document.getElementsByTagName('body')[0];
-    var g_script = document.createElement('script');
-    g_script.type = 'text/javascript';
-    g_script.src = url;
-    g_script.async = true;
-    g_script.defer = true;
-    body.appendChild(g_script);
+                // Call the URL maker function which we defined earlier
+                url = make_url(url, parameters);
+
+                // Add the script tag with google maps api url at the end of
+                // the body with async and defer
+                let body = document.getElementsByTagName('body')[0];
+                let g_script = document.createElement('script');
+                g_script.type = 'text/javascript';
+                g_script.src = url;
+                g_script.async = true;
+                g_script.defer = true;
+                body.appendChild(g_script);
+            }
+            else
+            {
+                // Error response for not finding Google maps API key
+                let message = "Error: Google Maps API key not found!";
+                message += "Please check secrets.json file.";
+                alert(message);
+            }
+
+            if(json_data.foursquare.client_id)
+                fs_client_id = json_data.foursquare.client_id;
+            else
+            {
+                // Error response for not finding Foursquare client ID
+                let message = "Error: Foursquare API client ID not found!";
+                message += "Please check secrets.json file.";
+                alert(message);
+            }
+
+            if(json_data.foursquare.client_secret)
+                fs_client_secret = json_data.foursquare.client_secret;
+            else
+            {
+                // Error response for not finding Foursquare client secret
+                let message = "Error: Foursquare API client secret not found!";
+                message += "Please check secrets.json file.";
+                alert(message);
+            }
+        }
+    )
+    // To catch any error in fetching for secrets.json file
+    .catch(
+        function(error)
+        {
+            alert("Error while fetching for API keys: " + error);
+        }
+    );
 })();
 
 //==============================================================================
 
-var map;
+let map;
 
+// Google maps API call back function
 function init_map()
 {
     // Google Maps Styling
-    // Takes default values if not all values are given or even empty
-    var my_styledMapType = new google.maps.StyledMapType(
+    // These values are updated over default values
+    const my_styledMapType = new google.maps.StyledMapType(
         [
             {
                 elementType: 'geometry',
@@ -183,7 +251,9 @@ function init_map()
         {
             center: { lat: 37.402349, lng: -121.927459 },
             zoom: 13,
+            // To change Map types
             mapTypeControl: true,
+            // Map type button options
             mapTypeControlOptions: {
                 style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR,
                 mapTypeIds: ['my_style', 'hybrid']
@@ -193,20 +263,21 @@ function init_map()
         }
     );
 
-    //Associate the styled map with the MapTypeId and set it to display.
+    //Associate the Styled map with the MapTypeId and set it to display.
     map.mapTypes.set('my_style', my_styledMapType);
+    // Set the Map type to the style we defined earlier
     map.setMapTypeId('my_style');
 
-    //------------------------------------------------------------------
-
+    //--------------------------------------------------------------------------
+    // After the map is initiated, initiate Knockout JS and apply bindings.
     ko.applyBindings(new vm());
 }
 
 //==============================================================================
-
-var Place = function(id, name, {lat, lng}, category, description, default_icon)
+// Place class function (constructor) - for our listings
+let Place = function(id, name, {lat, lng}, category, description, default_icon)
 {
-    var self = this;
+    let self = this;
 
     self.id = id;
     self.name = name;
@@ -214,17 +285,23 @@ var Place = function(id, name, {lat, lng}, category, description, default_icon)
     self.category = category;
     self.description = description;
 
+    // Each place will have their own marker
     self.marker = new google.maps.Marker(
         {
+            // Assign id to marker,
+            // so that all the information can be grabbed using this id
             id: self.id,
             position: self.location,
             map: map,
             title: self.name,
             icon: default_icon,
+            // Animation for Marker
             animation: google.maps.Animation.DROP
         }
     );
 
+    // Show/Hide marker function, this adds additional functionality to
+    // animate markers when they are SHown from hidden state
     self.showHide_marker = function(state)
     {
         self.marker.setVisible(state);
@@ -238,13 +315,13 @@ var Place = function(id, name, {lat, lng}, category, description, default_icon)
 }
 
 //==============================================================================
-
+// Function to create icons for markers on the map - Google Maps API
 function create_marker_icon(url, w, h, s, anchor_ratio)
 {
-    var ws = w * s;
-    var hs = h * s;
+    const ws = w * s;
+    const hs = h * s;
 
-    var icon = new google.maps.MarkerImage(
+    const icon = new google.maps.MarkerImage(
         url,                                                    // url
         new google.maps.Size(ws, hs),                           // size
         new google.maps.Point(0, 0),                            // origin
@@ -255,41 +332,65 @@ function create_marker_icon(url, w, h, s, anchor_ratio)
     return icon;
 }
 
+//==============================================================================
+// String manipulation functions
+
+// Matches both strings like a search engine
 function string_match(input, match)
 {
-    var inputs = input.split(" ");
+    // Convert input to small letters
+    input = input.toLowerCase();
+    // Split into words seperated by space
+    let inputs = input.split(" ");
+    // Remove extra spaces on the front, back and in between the words
     inputs = remove_empty_strings(inputs);
-    for(var i=0; i<inputs.length; i++)
+    // Remove special characters like "'" in each word
+    for(let i=0; i<inputs.length; i++)
         inputs[i] = inputs[i].replace(/[^A-Z0-9]/ig, "");
     input = inputs.join(" ");
 
-    var match = match.toLowerCase();
-
-    var matches = match.split(" ");
-    for(var i=0; i<matches.length; i++)
+    // Convert to be matched string into small letters
+    match = match.toLowerCase();
+    // Split into words seperated by space
+    let matches = match.split(" ");
+    // Remove extra spaces on the front, back and in between the words
+    matches = remove_empty_strings(matches);
+    // Remove special characters like "'" in each word
+    for(let i=0; i<matches.length; i++)
         matches[i] = matches[i].replace(/[^A-Z0-9]/ig, "");
-    
-    var combined_match1 = matches.join("");
+    // Make two strings, one combined without spaces, one with spaces
+    // then compare the input with both of them
+    // without space
+    let combined_match1 = matches.join("");
+    // with space
+    let combined_match2 = matches.join(" ");
 
-    var combined_match2 = matches.join(" ");
-
+    // Return true if any of these three types match
+    // String without spaces
     if(combined_match1.startsWith(input))
         return true;
+    // with spaces
     else if(combined_match2.startsWith(input))
         return true;
+    // input matches with any one word of the the match string
     else
         for(var i=0; i<matches.length; i++)
             if(matches[i].startsWith(input))
                 return true;
 
+    // Return false if not matched in any of those conditions
     return false;
 }
 
+// This function is used in removing extra spaces in a string
+// String Split function creates empty character strings when there are more
+// than one space or spaces on the fronmt or back of the input string.
 function remove_empty_strings(string_array)
 {
     for(var i=0; i<string_array.length; i++)
         if(string_array[i] == '')
         {
+            // remove the empty string from the array
             string_array = remove_from_array(i, string_array);
             i--;
         }
@@ -297,8 +398,10 @@ function remove_empty_strings(string_array)
     return string_array;
 }
 
+// Function to remove an element from an array
 function remove_from_array(index, array)
 {
+    // Error conditions
     if(!array)
     {
         console.log("Error: array is null");
@@ -320,6 +423,7 @@ function remove_from_array(index, array)
         return -1;
     }
 
+    // Move all elements greater than the targetted elements one step front and // pop the last element, reducing the length of the array by one.
     for(var i=index; i<(array.length-1); i++)
         array[i] = array[i+1];
     

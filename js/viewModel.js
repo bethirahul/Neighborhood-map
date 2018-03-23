@@ -152,8 +152,7 @@ var vm = function()
             self.infoWindow.marker.setIcon(self.default_icon);
         
         self.infoWindow.marker = marker;
-        /*self.infoWindow.setContent("#");
-        self.infoWindow.open(map, marker);*/
+        marker.setIcon(self.selected_icon);
 
         var content = '<div id="infoWindow">';
 
@@ -239,8 +238,8 @@ var vm = function()
         var url = 'https://api.foursquare.com/v2/venues/search';
         
         var parameters = {
-            'client_id': 'HTBFZRTZTZPNMI5RU1VCGPBCUZR0NK4XXPQFWTPSCCVHBVBL',
-            'client_secret': 'TLUBLKEWGFURA5TIUC5K0EXHKOMQ551BINJGFM0NXA2SNZHB',
+            'client_id': fs_client_id,
+            'client_secret': fs_client_secret,
             'v': '20170801',
             'categoryId': category_id,
             'limit': '1',
@@ -296,8 +295,8 @@ var vm = function()
     {
         var url = 'https://api.foursquare.com/v2/venues/' + venue_id;
         var parameters = {
-            'client_id': 'HTBFZRTZTZPNMI5RU1VCGPBCUZR0NK4XXPQFWTPSCCVHBVBL',
-            'client_secret': 'TLUBLKEWGFURA5TIUC5K0EXHKOMQ551BINJGFM0NXA2SNZHB',
+            'client_id': fs_client_id,
+            'client_secret': fs_client_secret,
             'v': '20170801'
         }
 
@@ -415,56 +414,17 @@ var vm = function()
         if(self.search_category() == self.categories()[0])
             category_results = self.places;
         else
-        {
             for(var i=0; i<self.places.length; i++)
-            {
                 if(self.search_category() == self.places[i].category)
                     category_results.push(self.places[i]);
-            }
-        }
 
         self.search_results([]);
         if(self.search_query() == '')
             self.search_results(category_results);
         else
-        {
-            /*var inputs = self.search_query().split(" ");
-            for(var j=0; j<inputs.length; j++)
-                inputs[j] = inputs[j].replace(/[^A-Z0-9]/ig, "");
-            var input = inputs.join(" ");*/
-
             for(var i=0; i<category_results.length; i++)
-            {
-                /*var name = category_results[i].name.toLowerCase();
-
-                var names = name.split(" ");
-                for(var j=0; j<names.length; j++)
-                    names[j] = names[j].replace(/[^A-Z0-9]/ig, "");
-                
-                var combined_name1 = names.join("");
-
-                var combined_name2 = names.join(" ");
-
-                var found = false;
-                if(combined_name1.startsWith(input))
-                    found = true;
-                else if(combined_name2.startsWith(input))
-                    found = true;
-                else
-                    for(var j=0; j<names.length; j++)
-                        if(names[j].startsWith(input))
-                        {
-                            found = true;
-                            j = names.length;
-                        }
-
-                if(found)
-                    self.search_results.push(category_results[i]);*/
-
                 if(string_match(self.search_query(), category_results[i].name))
                     self.search_results.push(category_results[i]);
-            }
-        }
 
         self.showHide_all_places(false);
         var results_length = self.search_results().length;
