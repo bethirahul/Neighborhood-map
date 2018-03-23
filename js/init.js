@@ -301,7 +301,9 @@ let Place = function(id, name, {lat, lng}, category, description, default_icon)
     );
 
     // Show/Hide marker function, this adds additional functionality to
-    // animate markers when they are SHown from hidden state
+    // animate markers when they are Shown
+    // state == true  -> Show Marker
+    // state == false -> Hide Marker
     self.showHide_marker = function(state)
     {
         self.marker.setVisible(state);

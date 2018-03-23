@@ -9,3 +9,6 @@ database/
 # Python cache folder
 */__pycache__/
 __pycache__/
+
+# temp files
+temp.json
