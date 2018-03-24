@@ -73,11 +73,11 @@ This app uses a **PostgreSQL database** and **Python server** to get the places 
 5. The [``viewModel.js``](/js/viewModel.js) Javascript file is the View-Model of the Knockout JS organizational framework. It has all the observational variables and bindings. It also has other variables (Google Maps API, Foursquare API).
     - It requests the _places_ data from the _database sever_ we setup earlier.
         - **_Note:_** If you change the [``server-address``](https://github.com/bethirahul/Neighborhood-map/blob/b62a393413723060328dea2ae0817695985b007e/database_server/app.py#L71) and JSON data [``end-point``](https://github.com/bethirahul/Neighborhood-map/blob/b62a393413723060328dea2ae0817695985b007e/database_server/app.py#L54) in the [web server (``app.py``)](/database_server/app.py), you need to update it [here (``viewModel.js``)](https://github.com/bethirahul/Neighborhood-map/blob/b62a393413723060328dea2ae0817695985b007e/js/viewModel.js#L65) as well.
-    - With the obtained JSON data, it creates _Places Objects_ with **_Google Maps API Markers_**.
+    - With the obtained JSON data, it creates '_places_' objects with **Google Maps API _Markers_**.
     - Clicking on each _marker_ on the map will open a small window with that _place_'s ``name``, location (``latitude``, ``longitude``) and ``description``.
-        - Google Street View -- Along with these, it then requests the **_Google Street View Image API_** service to get the nearest _360 image_ and displays it when received.
-        - Foursquare -- For _cafes_, there is a _button_ '_More info_' to search for _Foursquare data_ about the _place_.
-            - Clicking that _button_ will request **_Foursquare API - Search for Venues_** service to search for the _cafe_ with the ``name``, location (``latitude``, ``longitude``) and ``category`` of the _cafe_. Received _response_ (JSON) will have some details about the _cafe_ along with its ``venue ID``.
-            - Using this ``venue ID``, another request is made to **_Foursquare API - Venues_** service for more details about the _cafe_. Received _response_ (JSON) will have more details about the _cafe_. _Website_, _rating_, _working hours_ and _Foursquare link_ of the _cafe_ are taken from the _response_ and displayed.
-            - Not all places are available on _Foursquare_, a _sorry_ message is displayed when a _cafe_ is not found.
+        - Google Street View -- Web app then requests the **Google Street View Image API** service to get the nearest 360 image and displays it in that window, when received.
+        - Foursquare -- For cafés, there is a button '_More info_' to search for Foursquare data about the café.
+            - Clicking that button will request **Foursquare API _Search for Venues_** service to search for the café with the ``name`` and location (``latitude``, ``longitude``) of the café along with ``Foursquare category ID for cafe``. Received response (JSON) will have some details about the café along with its ``venue ID``.
+                - **_Note:_** Not all places are available on Foursquare, a _sorry_ message is displayed when a café is not found.
+            - Using this ``venue ID``, a different request is made to **Foursquare API _Venues_** service for more details. Received response (JSON) will have all the details about the café. _Website_, _rating_, _working hours_ and _Foursquare link_ of the café are taken from the response and displayed.
     - 
