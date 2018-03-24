@@ -362,7 +362,7 @@ function create_marker_icon(url, w, h, s, anchor_ratio)
 }
 
 //==============================================================================
-// String manipulation functions
+// String, Array manipulation functions
 
 /**
  * @description Matches both strings by seperating words, removing special
@@ -476,6 +476,11 @@ function remove_from_array(index, array)
     return array;
 }
 
+/**
+ * @description Union of two arrays (removes duplicates).
+ * @param {[]} array1 
+ * @param {[]} array2 
+ */
 function arrays_union(array1, array2)
 {
     array1.concat(array2);

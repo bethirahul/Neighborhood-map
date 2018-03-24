@@ -553,6 +553,8 @@ let vm = function()
         // variable, which will update our page.
         else
         {
+            // Check if search query matched with category names
+            // If so, output all places with that category
             let matched_category = [];
             if(self.search_category() == self.categories()[0])
                 for(let i=0; i<self.categories().length; i++)
@@ -564,17 +566,20 @@ let vm = function()
                         break;
                     }
             
+            // Check if search query matches with any place name 
             let matched_name = [];
             for(let i=0; i<category_results.length; i++)
                 if(string_match(self.search_query(), category_results[i].name))
                     matched_name.push(category_results[i]);
             
+            // If we got above two results, then take the union of them
             if(matched_category.length > 0 && matched_name.length > 0)
             {
                 let results = arrays_union(matched_category, matched_name);
                 for(let i=0; i<matched_category.length; i++)
                 self.search_results(results);
             }
+            // else, show which one of those two got results
             else if(matched_category.length > 0)
                 self.search_results(matched_category);
             else
