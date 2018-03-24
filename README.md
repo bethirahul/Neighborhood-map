@@ -38,7 +38,7 @@ This app uses a **PostgreSQL database** and **Python server** to get the places 
     - Populate the database with values by running [``init_values.py``](/database_server/init_values.py) using Python.
 4. Run [``app.py``](/database_server/app.py) using Python, the app will be up and running on [localhost:5000](http://localhost:5000) address. Press **Ctrl**+**C** a couple of times to stop the server.
     - You can check the database server _(python app)_ JSON output at [http://localhost:5000/listings/json](http://localhost:5000/listings/json).
-    - **_Note_:** If you change the [``server-address``(here)](https://github.com/bethirahul/Neighborhood-map/blob/b62a393413723060328dea2ae0817695985b007e/database_server/app.py#L71) and JSON data [``end-point``(here)](https://github.com/bethirahul/Neighborhood-map/blob/b62a393413723060328dea2ae0817695985b007e/database_server/app.py#L54) in the [web server (``app.py``)](/database_server/app.py), you need to update it [here (``viewModel.js``)](https://github.com/bethirahul/Neighborhood-map/blob/b62a393413723060328dea2ae0817695985b007e/js/viewModel.js#L65) as well.
+    - **_Note_:** If you change the [``server-address``(here)](https://github.com/bethirahul/Neighborhood-map/blob/b62a393413723060328dea2ae0817695985b007e/database_server/app.py#L71) and JSON data [``end-point``(here)](https://github.com/bethirahul/Neighborhood-map/blob/b62a393413723060328dea2ae0817695985b007e/database_server/app.py#L54) in the [web server (``app.py``)](/database_server/app.py), you need to update it [here (``viewModel.js``)](https://github.com/bethirahul/Neighborhood-map/blob/c70b0718bdf3bf1a34d2c78bd1bfb0cc8f5f63b4/js/viewModel.js#L65) as well.
 5. Get a [Google Maps API key](https://developers.google.com/maps/documentation/javascript/get-api-key) and [Foursquare API Client ID and Client Secret](https://foursquare.com/developers/login?continue=%2Fdevelopers%2Fapps).
     - For Google - Create a project and add [Google Maps Javascript API](https://developers.google.com/maps/documentation/javascript/) and [Google Street View Image API](https://developers.google.com/maps/documentation/streetview/) to your project.
 6. Make a new json file named ``secrets.json`` in the [``root``](../../) folder.
@@ -135,7 +135,7 @@ This app uses a **PostgreSQL database** and **Python server** to get the places 
 ## Other details
 
 - Styling file [``style.css``](/css/style.css) is in [``css``](/css/) folder.
-- Images for _Marker_ icons are in [images/marker_icons/flag](/images/marker_icons/flag/) folder.
+- Images for _Marker_ icons are in [``images/marker_icons/flag``](/images/marker_icons/flag/) folder.
 - **Screenshots** are in [``screenshots``](/screenshots/) folder.
 
 ### My LinkedIn profile
