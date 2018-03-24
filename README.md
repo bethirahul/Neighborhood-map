@@ -92,6 +92,12 @@ This app uses a **PostgreSQL database** and **Python server** to get the places 
     - Using this ``venue ID``, a different request is made to **Foursquare API _Venues_** service for more details. Received response (JSON) will have all the details about the café. ``website``, ``rating``, ``working hours`` and ``Foursquare link`` of the café are taken from the response and displayed.
         - **_Note_:** Not all places will have all the details.
 
+    - Each _Marker_ has three **icons**.
+        1. Default icon
+        2. Highlighted icon - when mouse hovers over the marker.
+        3. Selected icon - when the marked is clicked and info window is opened.
+    - **Drop-animation** is played when a marker is shown after hiding them.
+
 8. **_Listings_ side-bar** (place's link)**:** Clicking on the '_Show Listings_' button will open a side-bar with all the place names as links. Here, the word _Listing_ is used for a place's link.
     - Clicking a _Listing_ is same as clicking that place's _Marker_, but also closes the side-bar.
     - The side-bar also has search feature to search for places and show the short-listed _Listings_. It has three elements.
@@ -129,7 +135,7 @@ This app uses a **PostgreSQL database** and **Python server** to get the places 
 ## Other details
 
 - Styling file [``style.css``](/css/style.css) is in [``css``](/css/) folder.
-
+- Images for _Marker_ icons are in [images/marker_icons/flag](/images/marker_icons/flag/) folder.
 - **Screenshots** are in [``screenshots``](/screenshots/) folder.
 
 ### My LinkedIn profile
