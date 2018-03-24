@@ -10,15 +10,15 @@ This app uses a **PostgreSQL database** and **Python server** to get the places 
 
 ## Built using
 
-- **HTML**, **Javascript**, [**Knockout JS**](http://knockoutjs.com/downloads/index.html) v3.4.2 _(organizational framework)_, [**Google Maps API**](https://developers.google.com/maps/) v3.31, [**Foursquare API**](https://developer.foursquare.com/) v2 20170801.
+- [**HTML**](https://developer.mozilla.org/en-US/docs/Web/HTML), [**Javascript**](https://developer.mozilla.org/en-US/docs/Web/JavaScript), [**Knockout JS**](http://knockoutjs.com/downloads/index.html) v3.4.2 _(organizational framework)_, [**Google Maps API**](https://developers.google.com/maps/) v3.31, [**Foursquare API**](https://developer.foursquare.com/) v2 20170801.
 - [**Python**](https://www.python.org/downloads/) v3.6.4 _(web server)_, [**PostgreSQL**](https://www.postgresql.org/download/) v10.3 _(database)_.
 
 ## Instructions to run
 
 1. Install database software - [**PostgreSQL**](https://www.postgresql.org/download/) v10.3.
 2. Install [**Python**](https://www.python.org/downloads/) v3.6.4, and then ``pip install``:
-    - ``flask``
-    - ``sqlalchemy``
+    - [``flask``](http://flask.pocoo.org/)
+    - [``sqlalchemy``](https://www.sqlalchemy.org/)
 3. Setup Database:
     - Setup a database.
         - _I used [pgAdmin](https://www.pgadmin.org/) 4 v2.1 which is installed along with PostgreSQL database software for Windows._
