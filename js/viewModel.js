@@ -62,8 +62,7 @@ let vm = function()
         // Endpoint to our database server (postgreSQL) which gives the
         // listings in JSON format
         // Fetch the data
-        //fetch("http://localhost:5000/listings/json")
-        fetch("http://192.168.0.107:5000/listings/json")
+        fetch("http://localhost:5000/listings/json")
         // Convert the data to JSON
         .then( function(data) { return data.json(); } )
         // Process the JSON data

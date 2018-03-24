@@ -396,6 +396,7 @@ function string_match(input, match)
     for(let i=0; i<inputs.length; i++)
         inputs[i] = inputs[i].replace(/[^A-Z0-9]/ig, "");
     input = inputs.join(" ");
+    combined_input = inputs.join("");
 
     // Convert to be matched string into small letters
     match = match.toLowerCase();
@@ -424,6 +425,16 @@ function string_match(input, match)
     else
         for(var i=0; i<matches.length; i++)
             if(matches[i].startsWith(input))
+                return true;
+    
+    // Now check the above same with input - without spaces.
+    if(combined_match1.startsWith(combined_input))
+        return true;
+    else if(combined_match2.startsWith(combined_input))
+        return true;
+    else
+        for(var i=0; i<matches.length; i++)
+            if(matches[i].startsWith(combined_input))
                 return true;
 
     // Return false if not matched in any of those conditions
@@ -496,16 +507,16 @@ function remove_from_array(index, array)
  */
 function arrays_union(array1, array2)
 {
-    array1.concat(array2);
-    for(let i=0; i<(array1.length-1); i++)
+    let array = array1.concat(array2);
+    for(let i=0; i<(array.length-1); i++)
     {
-        for(let j=(i+1); j<array1.length; j++)
-            if(array1[i] === array1[j])
+        for(let j=(i+1); j<array.length; j++)
+            if(array[i] === array[j])
             {
-                remove_from_array(j, array1);
+                remove_from_array(j, array);
                 j--;
             }
     }
 
-    return array1;
+    return array;
 }

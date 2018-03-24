@@ -38,7 +38,7 @@ This app uses a **PostgreSQL database** and **Python server** to get the places 
     - Populate the database with values by running [``init_values.py``](/database_server/init_values.py) using Python.
 4. Run [``app.py``](/database_server/app.py) using Python, the app will be up and running on [localhost:5000](http://localhost:5000) address. Press **Ctrl**+**C** a couple of times to stop the server.
     - You can check the database server _(python app)_ JSON output at [http://localhost:5000/listings/json](http://localhost:5000/listings/json).
-    - **_Note_:** If you change the [``server-address`` (here)](https://github.com/bethirahul/Neighborhood-map/blob/b62a393413723060328dea2ae0817695985b007e/database_server/app.py#L71) and JSON data [``end-point`` (here)](https://github.com/bethirahul/Neighborhood-map/blob/b62a393413723060328dea2ae0817695985b007e/database_server/app.py#L54) in the [web server (``app.py``)](/database_server/app.py), you need to update it [here (``viewModel.js``)](https://github.com/bethirahul/Neighborhood-map/blob/b62a393413723060328dea2ae0817695985b007e/js/viewModel.js#L65) as well.
+    - **_Note_:** If you change the [``server-address``(here)](https://github.com/bethirahul/Neighborhood-map/blob/b62a393413723060328dea2ae0817695985b007e/database_server/app.py#L71) and JSON data [``end-point``(here)](https://github.com/bethirahul/Neighborhood-map/blob/b62a393413723060328dea2ae0817695985b007e/database_server/app.py#L54) in the [web server (``app.py``)](/database_server/app.py), you need to update it [here (``viewModel.js``)](https://github.com/bethirahul/Neighborhood-map/blob/b62a393413723060328dea2ae0817695985b007e/js/viewModel.js#L65) as well.
 5. Get a [Google Maps API key](https://developers.google.com/maps/documentation/javascript/get-api-key) and [Foursquare API Client ID and Client Secret](https://foursquare.com/developers/login?continue=%2Fdevelopers%2Fapps).
     - For Google - Create a project and add [Google Maps Javascript API](https://developers.google.com/maps/documentation/javascript/) and [Google Street View Image API](https://developers.google.com/maps/documentation/streetview/) to your project.
 6. Make a new json file named ``secrets.json`` in the [``root``](../../) folder.
@@ -99,6 +99,7 @@ This app uses a **PostgreSQL database** and **Python server** to get the places 
         2. A drop-down menu to choose category - to filter out places with that category.
             - Options of this menu is taken from the categories of all places.
         3. A '_Clear_' button to clear the input field and reset drop-down menu to '_All_' places.
+    - _Listings_ can be scrolled up-down, if they don't fit in the page.
 
 9. **Search (filter):** Search is done as you type, for each character or option selected.
     - First, category drop-down menu (filter) is checked. '_All_' option represents all places. Selecting any other category option will filter out places which are doesn't belong to that category.
@@ -108,6 +109,8 @@ This app uses a **PostgreSQL database** and **Python server** to get the places 
     - Union of above two searches (place name search and category name search when category filter is set to '_All_') is finally displayed as _Listings_.
     - Special characters, spaces are ignored for convinience. All letters are converted to small-caps.
         - **Example:** _Typing in ``suesgall`` or ``sues gall`` or ``sue'sGall`` etc. will give same result ``Sue's Gallery Cafe``._
+    - Even if the input is a middle word, it is matched.
+        - **Example:** _Typing in ``hwy`` or ``h  w y`` etc. will give same result ``Cabrillo Hwy`` and ``Panaromic Hwy``._
 10. Clicking anywhere on the map will close the info window of a place and also the side-bar (if it is open).
 
 ### Error detection
