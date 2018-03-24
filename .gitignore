@@ -10,5 +10,8 @@ database/
 */__pycache__/
 __pycache__/
 
+# Visual Studio Code folder
+.vscode/
+
 # temp files
 temp.json

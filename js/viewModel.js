@@ -521,7 +521,10 @@ let vm = function()
     // Add functionality to search when this filter is changed.
     self.search_category.subscribe( function() { self.search_lisitngs(); } );
 
-    /* Knockout JS observable array to get all the places from the search results. This array is showed in the side-bar as buttons. Clicking each button will open, that place, infoWindow. Markers of only these places are shown on the map.*/
+    /* Knockout JS observable array to get all the places from the search
+    results. This array is showed in the side-bar as buttons. Clicking each
+    button will open, that place, infoWindow. Markers of only these places are
+    shown on the map.*/
     self.search_results = ko.observableArray([]);
 
     // Knockout JS observable - sued to display an error message if no places
