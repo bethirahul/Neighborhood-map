@@ -17,8 +17,8 @@ This app uses a **PostgreSQL database** and **Python server** to get the places 
 
 1. Install database software - [**PostgreSQL**](https://www.postgresql.org/download/) v10.3.
 2. Install [**Python**](https://www.python.org/downloads/) v3.6.4, and then ``pip install``:
-    - [``flask``](http://flask.pocoo.org/)
-    - [``sqlalchemy``](https://www.sqlalchemy.org/)
+    - [``flask``](http://flask.pocoo.org/) (microframework for Python)
+    - [``sqlalchemy``](https://www.sqlalchemy.org/) (Python SQL toolkit)
 3. Setup Database:
     - Setup a database.
         - _I used [pgAdmin](https://www.pgadmin.org/) 4 v2.1 which is installed along with PostgreSQL database software for Windows._
@@ -40,7 +40,7 @@ This app uses a **PostgreSQL database** and **Python server** to get the places 
     - You can check the database output at [http://localhost:5000/listings/json](http://localhost:5000/listings/json).
 5. Get a [Google Maps API key](https://developers.google.com/maps/documentation/javascript/get-api-key) and a [Foursquare API Client ID and Client Secret](https://foursquare.com/developers/login?continue=%2Fdevelopers%2Fapps).
     - For Google - Create a project and add [Google Maps Javascript API](https://developers.google.com/maps/documentation/javascript/) and [Google Street View Image API](https://developers.google.com/maps/documentation/streetview/) to your project.
-6. Make a new json file named ``secrets.json`` in the [``root``](/) folder.
+6. Make a new json file named ``secrets.json`` in the [``root``](../) folder.
     - Fill out the JSON file with the [Google Maps API key](https://developers.google.com/maps/documentation/javascript/get-api-key) and [Foursquare API Client details](https://foursquare.com/developers/login?continue=%2Fdevelopers%2Fapps).
         ```json
         {
