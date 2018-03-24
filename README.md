@@ -123,5 +123,11 @@ This app uses a **PostgreSQL database** and **Python server** to get the places 
 9. If no place was found while searching for Foursquare data.
 10. If no places (lisitngs) were found in the search (filter).
 
-#### My LinkedIn profile
+## Other details
+
+- Styling file [``style.css``](/css/style.css) is in [``css``](/css/) folder.
+
+- **Screenshots** are in [``screenshots``](/screenshots/) folder.
+
+### My LinkedIn profile
 https://www.linkedin.com/in/rahulbethi

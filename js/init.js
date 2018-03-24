@@ -131,7 +131,7 @@ function init_map()
     setTimeout(
         function()
         {
-            if(typeof google === 'object' && typeof google.maps === 'object')
+            if(typeof google !== 'object' || typeof google.maps !== 'object')
             {
                 let message = "Error: Couldn't reach Google Maps API Server!";
                 message += "\nGoogle Maps API not loaded.";
