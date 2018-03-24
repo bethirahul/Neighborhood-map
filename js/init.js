@@ -343,7 +343,7 @@ let Place = function(id, name, {lat, lng}, category, description, default_icon)
  * @param {number} s Scale factor
  * @param {number} anchor_ratio Center of the marker with respect to point 
  *                              on map and its width.
- * @returns Google Maps API - Marker icon.
+ * @returns Google Maps Marker icon
  */
 function create_marker_icon(url, w, h, s, anchor_ratio)
 {

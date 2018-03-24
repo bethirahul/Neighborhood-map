@@ -29,8 +29,11 @@ header
     height: 9mm;
     display: grid;
     grid-template-columns: 5mm auto;
-    /*align-items: center;*/
-    /*justify-content: center;*/
+}
+
+input, section
+{
+    -webkit-appearance: none;
 }
 
 #toggle-listings
@@ -103,21 +106,28 @@ header
 
 #search-clear-btn
 {
-    width: 11mm;
-    height: 5.5mm;
+    width: 11.5mm;
+    padding: 0.66mm;
+    border: solid 1px #7c7c7c;
+}
+
+#listings-container
+{
+    height: calc(100% - 31.5mm);
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
 }
 
 #listings
 {
     display: grid;
+    overflow: hidden;
 }
 
 .listing
 {
-    height: 7.5mm;
-
     margin: 0.5mm;
-    padding: 1mm;
+    padding: 1.5mm;
     border-top: solid 1px #424242;
     border-bottom: solid 1px #424242;
 }
@@ -127,7 +137,6 @@ header
     margin: 0.5mm;
     padding-left: 1mm;
     padding-right: 1mm;
-    /*width: 15mm;*/
     height: 5mm;
     border: solid 1px #7c7c7c;
 }

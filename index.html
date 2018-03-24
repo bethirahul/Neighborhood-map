@@ -60,24 +60,26 @@
               data-bind="options: categories, value: search_category">
           </select>
           <input
-              id="search-clear-btn" class="search-element"
+              id="search-clear-btn" class="search-element theme"
               type="button"
               data-bind="value: 'Clear', click: clear_search">
         </div>
         <br/>
-        <div
-            id="listings"
-            data-bind="visible: search_results_found, foreach: search_results">
-          <input
-              class="listing theme"
-              type="button"
-              data-bind="
-                value: name,
-                click: function() 
-                {
-                    $parent.set_infoWindow($parent.places[id].marker);
-                }">
-          </input>
+        <div id="listings-container">
+          <div
+              id="listings"
+              data-bind="visible: search_results_found, foreach: search_results">
+            <input
+                class="listing theme"
+                type="button"
+                data-bind="
+                  value: name,
+                  click: function() 
+                  {
+                      $parent.set_infoWindow($parent.places[id].marker);
+                  }">
+            </input>
+          </div>
         </div>
         <p data-bind="visible: !search_results_found()">
           <em>No results were found!</em>
