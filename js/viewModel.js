@@ -552,9 +552,34 @@ let vm = function()
         // All the results mathced are now updated into the knockout observable
         // variable, which will update our page.
         else
+        {
+            let matched_category = [];
+            if(self.search_category() == self.categories()[0])
+                for(let i=0; i<self.categories().length; i++)
+                    if(string_match(self.search_query(), self.categories()[i]))
+                    {
+                        for(let j=0; j<self.places.length; j++)
+                            if(self.categories()[i] == self.places[j].category)
+                                matched_category.push(self.places[j]);
+                        break;
+                    }
+            
+            let matched_name = [];
             for(let i=0; i<category_results.length; i++)
                 if(string_match(self.search_query(), category_results[i].name))
-                    self.search_results.push(category_results[i]);
+                    matched_name.push(category_results[i]);
+            
+            if(matched_category.length > 0 && matched_name.length > 0)
+            {
+                let results = arrays_union(matched_category, matched_name);
+                for(let i=0; i<matched_category.length; i++)
+                self.search_results(results);
+            }
+            else if(matched_category.length > 0)
+                self.search_results(matched_category);
+            else
+                self.search_results(matched_name);
+        }
 
         // Hide all markers and show only those places' markers which are now
         // obtained from results.

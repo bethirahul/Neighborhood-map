@@ -475,3 +475,19 @@ function remove_from_array(index, array)
 
     return array;
 }
+
+function arrays_union(array1, array2)
+{
+    array1.concat(array2);
+    for(let i=0; i<(array1.length-1); i++)
+    {
+        for(let j=(i+1); j<array1.length; j++)
+            if(array1[i] === array1[j])
+            {
+                remove_from_array(j, array1);
+                j--;
+            }
+    }
+
+    return array1;
+}
