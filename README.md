@@ -93,9 +93,9 @@ This app uses a **PostgreSQL database** and **Python server** to get the places 
         - **_Note_:** Not all places will have all the details.
 
     - Each _Marker_ has three **icons**.
-        1. Default icon
-        2. Highlighted icon - when mouse hovers over the marker.
-        3. Selected icon - when the marked is clicked and info window is opened.
+        1. [Default icon](/images/marker_icons/flag/default.png) - normal
+        2. [Highlighted icon](/images/marker_icons/flag/hover.png) - when mouse hovers over the marker.
+        3. [Selected icon](/images/marker_icons/flag/selected.png) - when the marked is clicked and info window is opened.
     - **Drop-animation** is played when a marker is shown after hiding them.
 
 8. **_Listings_ side-bar** (place's link)**:** Clicking on the '_Show Listings_' button will open a side-bar with all the place names as links. Here, the word _Listing_ is used for a place's link.
