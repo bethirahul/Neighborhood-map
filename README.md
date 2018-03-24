@@ -87,7 +87,7 @@ This app uses a **PostgreSQL database** and **Python server** to get the places 
 
     - Google Street View -- Web app then requests the **Google Street View Image API** service to get the nearest 360 image and displays it in that window, when received.
 
-    - Foursquare -- For cafés, there will be a button '_More info_' in that window to search for Foursquare data about the café. Clicking that button will request **Foursquare API _Search for Venues_** service to search for the café with the ``name`` and location (``latitude``, ``longitude``) of the café along with ``Foursquare category ID for cafe``. Received response (JSON) will have some details about the café along with its ``venue ID``.
+    - Foursquare -- For cafés, there will be a button '_More info_' in that window to search for Foursquare data about the café. Clicking that button will request **Foursquare API _Search for Venues_** service to search for the café with the ``name`` and location (``latitude``, ``longitude``) of the café along with _Foursquare category ID for cafe_ - ``4bf58dd8d48988d16d941735``. Received response (JSON) will have some details about the café along with its ``venue ID``.
         - **_Note_:** Not all places are available on Foursquare, a _sorry_ message is displayed when a café is not found.
     - Using this ``venue ID``, a different request is made to **Foursquare API _Venues_** service for more details. Received response (JSON) will have all the details about the café. ``website``, ``rating``, ``working hours`` and ``Foursquare link`` of the café are taken from the response and displayed.
         - **_Note_:** Not all places will have all the details.

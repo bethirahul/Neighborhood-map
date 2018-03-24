@@ -27,10 +27,7 @@ let vm = function()
     // Close infoWindow when close button on it is pressed
     self.infoWindow.addListener(
         'closeclick',
-        function()
-        {
-            self.close_infoWindow();
-        }
+        function() { self.close_infoWindow(); }
     );
 
     // Function to close infoWindow, set infoWindow's associated marker to null
@@ -43,7 +40,7 @@ let vm = function()
             self.infoWindow.marker = null;
             self.infoWindow.close();
         }
-    }
+    };
 
     // Clicking the map closes the infoWindow and Lisitngs (side-bar)
     map.addListener(
@@ -86,13 +83,13 @@ let vm = function()
                         json_data.Places[i].category,
                         json_data.Places[i].description,
                         self.default_icon
-                    )
+                    );
 
                     // Add event listeners to each place's marker
                     // Hover - to change icon to highlighted
                     new_place.marker.addListener(
                         'mouseover',
-                        function()
+                        function(self)
                         {
                             if(self.infoWindow.marker != this)
                                 this.setIcon(self.highlighted_icon);
@@ -102,7 +99,7 @@ let vm = function()
                     // Icons won't change when the marker is selected
                     new_place.marker.addListener(
                         'mouseout',
-                        function()
+                        function(self)
                         {
                             if(self.infoWindow.marker != this)
                                 this.setIcon(self.default_icon);
@@ -110,7 +107,7 @@ let vm = function()
                     );
                     // Click event to show infoWindow at the marker
                     new_place.marker.addListener(
-                        'click', function() { self.set_infoWindow(this); });
+                        'click', function(self) { self.set_infoWindow(this); });
                     
                     // Push the new place created, with event listeners to the
                     // places array
@@ -180,7 +177,7 @@ let vm = function()
             self.places[i].showHide_marker(state);
         if(state == false)
              self.close_infoWindow();
-    }
+    };
 
     // Function to set the content and open the infoWindow at the given marker.
     self.set_infoWindow = function(marker)
@@ -293,7 +290,7 @@ let vm = function()
                 self.infoWindow.setContent(content);
             }
         }
-    }
+    };
 
     // Function to fetch for FourSquare data (API)
     self.get_fourSquare_data = function(place_id)
@@ -382,7 +379,7 @@ let vm = function()
                 alert("Error during fetching for FourSquare data: " + error);
             }
         );
-    }
+    };
 
     // Another Foursquare API endpoint to get more details about a particular
     // place, using the place's foursquare id.
@@ -394,7 +391,7 @@ let vm = function()
             'client_id': fs_client_id,
             'client_secret': fs_client_secret,
             'v': '20170801'
-        }
+        };
         // Make the URL with parameters
         url = make_url(url, parameters);
 
@@ -481,7 +478,7 @@ let vm = function()
         );
 
         return content;
-    }
+    };
 
     // Knockout JS observable for text on the Show listings button
     // This button is used to open/close listings side-bar.
@@ -494,7 +491,7 @@ let vm = function()
             self.showHide_listings(true);
         else
             self.showHide_listings(false);
-    }
+    };
 
     // Knockout JS observable to show/hide listings side-bar
     self.display_listings = ko.observable(false);
@@ -511,7 +508,7 @@ let vm = function()
             self.listings_btn_text('Hide Listings');
         else
             self.listings_btn_text('Show Listings');
-    }
+    };
 
     // Knockout JS observable to get the search input.
     self.search_query = ko.observable("");
@@ -623,12 +620,12 @@ let vm = function()
             if(map.getZoom() > 16)
                 map.setZoom(16);
         }
-    }
+    };
 
     // Function for clear button - clears both search and category filter.
     self.clear_search = function()
     {
         self.search_query("");
         self.search_category(self.categories()[0]);
-    }
-}
+    };
+};

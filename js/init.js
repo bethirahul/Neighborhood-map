@@ -12,10 +12,10 @@ function make_url(url, parameters={})
     {
         url += '?';
         let k = 0;
-        for(key in parameters)
+        for(let key in parameters)
         {
             // Get the value associated to each key in parameters
-            value = parameters[key];
+            let value = parameters[key];
             // Check if a value is an array, if so add them with comma
             if(value.constructor === Array)
             {
@@ -339,13 +339,13 @@ let Place = function(id, name, {lat, lng}, category, description, default_icon)
     {
         self.marker.setVisible(state);
 
-        if(state == true)
+        if(state === true)
         {
             self.marker.setIcon(default_icon);
             self.marker.setAnimation(google.maps.Animation.DROP);
         }
-    }
-}
+    };
+};
 
 //==============================================================================
 /**
@@ -369,7 +369,7 @@ function create_marker_icon(url, w, h, s, anchor_ratio)
         new google.maps.Point(0, 0),                            // origin
         new google.maps.Point(((w-1)*s)*anchor_ratio, (h-1)*s), // anchor
         new google.maps.Size(ws, hs)                            // scale
-    )
+    );
 
     return icon;
 }
@@ -423,7 +423,7 @@ function string_match(input, match)
         return true;
     // input matches with any one word of the the match string
     else
-        for(var i=0; i<matches.length; i++)
+        for(let i=0; i<matches.length; i++)
             if(matches[i].startsWith(input))
                 return true;
     
@@ -433,7 +433,7 @@ function string_match(input, match)
     else if(combined_match2.startsWith(combined_input))
         return true;
     else
-        for(var i=0; i<matches.length; i++)
+        for(let i=0; i<matches.length; i++)
             if(matches[i].startsWith(combined_input))
                 return true;
 
@@ -452,7 +452,7 @@ function string_match(input, match)
 function remove_empty_strings(string_array)
 {
     for(let i=0; i<string_array.length; i++)
-        if(string_array[i] == '')
+        if(string_array[i] === '')
         {
             // remove the empty string from the array
             string_array = remove_from_array(i, string_array);
@@ -475,7 +475,7 @@ function remove_from_array(index, array)
         console.log("Error: array is null");
         return -1;
     }
-    if(array.length == 0)
+    if(array.length === 0)
     {
         console.log("Error: array is empty");
         return -1;
