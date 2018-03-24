@@ -110,5 +110,18 @@ This app uses a **PostgreSQL database** and **Python server** to get the places 
         - **Example:** _Typing in ``suesgall`` or ``sues gall`` or ``sue'sGall`` etc. will give same result ``Sue's Gallery Cafe``._
 10. Clicking anywhere on the map will close the info window of a place and also the side-bar (if it is open).
 
-### My LinkedIn profile
+### Error detection
+
+1. If **Google Maps API** is not loaded - checks after 5 seconds of Google maps callback function ``init_map()``.
+2. If _API Keys_ are not found in [``secrets.json``](/secrets.json) file in [``root``](../../) folder.
+3. If both ``secrets.json`` files are not found or couldn't be accessed.
+4. If _database server_ couldn't be reached.
+5. If **no** places are present in the response from the _database server_. Database might be empty.
+6. **Google Street View Image API** service error inside info window of marker.
+7. **Foursquare API _Search for Venues_** service data fetching error.
+8. **Foursquare API _Venues_** service data fetching error.
+9. If no place was found while searching for Foursquare data.
+10. If no places (lisitngs) were found in the search (filter).
+
+#### My LinkedIn profile
 https://www.linkedin.com/in/rahulbethi

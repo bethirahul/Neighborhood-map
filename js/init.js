@@ -127,6 +127,19 @@ let map;
  */
 function init_map()
 {
+    //Check if Google Maps API is loaded after 5 seconds. If not, send an error.
+    setTimeout(
+        function()
+        {
+            if(typeof google === 'object' && typeof google.maps === 'object')
+            {
+                let message = "Error: Couldn't reach Google Maps API Server!";
+                message += "\nGoogle Maps API not loaded.";
+                alert(message);
+            }
+        },
+        5000
+    );
     // Google Maps Styling
     // These values are updated over default values
     const my_styledMapType = new google.maps.StyledMapType(
