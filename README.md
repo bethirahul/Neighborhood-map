@@ -64,20 +64,22 @@ This app uses a **PostgreSQL database** and **Python server** to get the places 
     - [``init_values.py``](/database_server/init_values.py) python file adds some of my favorite places (in _Bay area, California_) to the '_Listings_' table in the _database_.
 2. [**Python web server** (``app.py``)](/database_server/app.py) runs at [localhost:5000](http://localhost:5000).
     - It extracts the _places_ from the _database_ and sends back in JSON format at [``http://localhost:5000/listings/json``](http://localhost:5000/listings/json).
-3. The [**Web app** (``index.html``)](/index.html) is our main app.
+3. The [**Web-app** (``index.html``)](/index.html) is our main app.
     - It calls two javascript files [``init.js``](/js/init.js) and [``viewModel.js``](/js/viewModel.js).
 4. The [``init.js``](/js/init.js) Javascript file inititates the map and then calls the **Knockout JS** to bind with rest of the code, as everything is dependent on the Google Map.
     - It first extracts the **_API Keys_** from [``secrets.json``](/secrets.json) JSON file in the [``root``](../../) folder.
     - It then loads the **Google Maps API** script using the _Google Maps API key_ in an asynchronous way.
     - **Knockout JS** is setup after the Google Maps API is loaded.
-5. The [``viewModel.js``](/js/viewModel.js) Javascript file is the View-Model of the Knockout JS organizational framework. It has all the observational variables and bindings. It also has other variables (Google Maps API, Foursquare API).
+5. The [``viewModel.js``](/js/viewModel.js) Javascript file is the View-Model of the Knockout JS organizational framework. It has all the observational variables and bindings. It also has other functions and variables (Google Maps API, Foursquare API and search-filter features).
     - It requests the _places_ data from the _database sever_ we setup earlier.
         - **_Note:_** If you change the [``server-address``](https://github.com/bethirahul/Neighborhood-map/blob/b62a393413723060328dea2ae0817695985b007e/database_server/app.py#L71) and JSON data [``end-point``](https://github.com/bethirahul/Neighborhood-map/blob/b62a393413723060328dea2ae0817695985b007e/database_server/app.py#L54) in the [web server (``app.py``)](/database_server/app.py), you need to update it [here (``viewModel.js``)](https://github.com/bethirahul/Neighborhood-map/blob/b62a393413723060328dea2ae0817695985b007e/js/viewModel.js#L65) as well.
-    - With the obtained JSON data, it creates '_places_' objects with **Google Maps API _Markers_**.
-    - Clicking on each _marker_ on the map will open a small window with that _place_'s ``name``, location (``latitude``, ``longitude``) and ``description``.
-        - Google Street View -- Web app then requests the **Google Street View Image API** service to get the nearest 360 image and displays it in that window, when received.
-        - Foursquare -- For cafés, there is a button '_More info_' to search for Foursquare data about the café.
-            - Clicking that button will request **Foursquare API _Search for Venues_** service to search for the café with the ``name`` and location (``latitude``, ``longitude``) of the café along with ``Foursquare category ID for cafe``. Received response (JSON) will have some details about the café along with its ``venue ID``.
-                - **_Note:_** Not all places are available on Foursquare, a _sorry_ message is displayed when a café is not found.
-            - Using this ``venue ID``, a different request is made to **Foursquare API _Venues_** service for more details. Received response (JSON) will have all the details about the café. _Website_, _rating_, _working hours_ and _Foursquare link_ of the café are taken from the response and displayed.
-    - 
+    - With the obtained JSON data, it creates 'places' objects with **Google Maps API _Markers_**.
+    - It also has all other remaining variables and functions related to the functionality of the web-app.
+6. **Web-app** consists a map with all the **_Markers_** of all the places. Each _Marker_ is located at the ``latitude`` and ``longitude`` of it's place on the map. Web-app also has a 'Show Listings' button on the top-left corner.
+7. **_Markers_:** Clicking on each _marker_ on the map will open a small window with ``name``, location (``latitude``, ``longitude``) and ``description`` of that _marker_'s place.
+    - Google Street View -- Web app then requests the **Google Street View Image API** service to get the nearest 360 image and displays it in that window, when received.
+    - Foursquare -- For cafés, there will be a button '_More info_' in that window to search for Foursquare data about the café. Clicking that button will request **Foursquare API _Search for Venues_** service to search for the café with the ``name`` and location (``latitude``, ``longitude``) of the café along with ``Foursquare category ID for cafe``. Received response (JSON) will have some details about the café along with its ``venue ID``.
+        - **_Note:_** Not all places are available on Foursquare, a _sorry_ message is displayed when a café is not found.
+    - Using this ``venue ID``, a different request is made to **Foursquare API _Venues_** service for more details. Received response (JSON) will have all the details about the café. _Website_, _rating_, _working hours_ and _Foursquare link_ of the café are taken from the response and displayed.
+        - **_Note:_** Not all places will have all the details.
+8. **_Listings_** (place's link)**:** 
