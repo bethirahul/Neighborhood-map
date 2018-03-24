@@ -132,8 +132,11 @@ let vm = function()
                 // If places are obtained
                 else
                 {
-                    // Fit the map with the bounds - showing all places
+                    // Fit the map with the bounds - showing all places.
+                    // Zoom level will goto 20 if there is only one place.
                     map.fitBounds(bounds);
+                    if(map.getZoom() > 16)
+                        map.setZoom(16);
 
                     // Collect the category data of each place, to create a
                     // category filter
@@ -610,6 +613,16 @@ let vm = function()
                     self.places[id].showHide_marker(true);
                 }
             }
+
+            // Setting map bounds to the results.
+            let bounds = new google.maps.LatLngBounds();
+            for(let i=0; i<results_length; i++)
+                bounds.extend(self.search_results()[i].location);
+            map.fitBounds(bounds);
+            
+            // Zoom level will goto 20 if there is only one place.
+            if(map.getZoom() > 16)
+                map.setZoom(16);
         }
     }
 
