@@ -2,7 +2,7 @@
 
 Application link: [https://**rahulbethi**.com/**neighborhood_map**](https://rahulbethi.com/neighborhood_map)
 
-This is my Neighborhood map _(web app)_, built by myself _**Rahul Bethi**_.
+This is my Neighborhood map _(web app)_, built by myself [_**Rahul Bethi**_](https://rahulbethi.com).
 
 It shows some of the places I love in _Bay area, California_.
 
