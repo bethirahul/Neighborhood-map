@@ -107,7 +107,7 @@ let vm = function()
                     );
                     // Click event to show infoWindow at the marker
                     new_place.marker.addListener(
-                        'click', function(self) { self.set_infoWindow(this); });
+                        'click', function() { self.set_infoWindow(this); });
                     
                     // Push the new place created, with event listeners to the
                     // places array
