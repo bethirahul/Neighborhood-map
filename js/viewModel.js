@@ -89,7 +89,7 @@ let vm = function()
                     // Hover - to change icon to highlighted
                     new_place.marker.addListener(
                         'mouseover',
-                        function(self)
+                        function()
                         {
                             if(self.infoWindow.marker != this)
                                 this.setIcon(self.highlighted_icon);
@@ -99,7 +99,7 @@ let vm = function()
                     // Icons won't change when the marker is selected
                     new_place.marker.addListener(
                         'mouseout',
-                        function(self)
+                        function()
                         {
                             if(self.infoWindow.marker != this)
                                 this.setIcon(self.default_icon);
