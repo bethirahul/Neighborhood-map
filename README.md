@@ -1,5 +1,7 @@
 # My Neighborhood Map
 
+Application link: [https://**rahulbethi**.com/**neighborhood_map**](https://rahulbethi.com/neighborhood_map)
+
 This is my Neighborhood map _(web app)_, built by myself _**Rahul Bethi**_.
 
 It shows some of the places I love in _Bay area, California_.
@@ -137,6 +139,7 @@ This app uses a **PostgreSQL database** and **Python server** to get the places 
 - Styling file [``style.css``](/css/style.css) is in [``css``](/css/) folder.
 - Images for _Marker_ icons are in [``images/marker_icons/flag``](/images/marker_icons/flag/) folder.
 - **Screenshots** are in [``screenshots``](/screenshots/) folder.
+- Address to my hosted app: [https://**rahulbethi**.com/**neighborhood_map**](https://rahulbethi.com/neighborhood_map)
 
 ### My LinkedIn profile
 https://www.linkedin.com/in/rahulbethi
