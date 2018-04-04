@@ -141,5 +141,8 @@ This app uses a **PostgreSQL database** and **Python server** to get the places 
 - **Screenshots** are in [``screenshots``](/screenshots/) folder.
 - Address to my hosted app: [https://**rahulbethi**.com/**neighborhood_map**](https://rahulbethi.com/neighborhood_map)
 
+### My Webpage
+[https://**rahulbethi**.com](https://rahulbethi.com)
+
 ### My LinkedIn profile
-https://www.linkedin.com/in/rahulbethi
+[https://www.linkedin.com/**in/rahulbethi**](https://www.linkedin.com/in/rahulbethi)
